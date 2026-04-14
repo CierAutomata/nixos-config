@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   home.stateVersion = "24.05";
@@ -21,16 +21,16 @@
   
   xdg.configFile = {
     # Hyprland
-    "hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/nixos-config/dotfiles/hyprland.conf";
+    "hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/hyprland.conf";
     
     # Neovim (den ganzen Ordner verlinken!)
-    "nvim".source = config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/nixos-config/dotfiles/nvim";
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/nvim";
     
     # Alacritty
-    "alacritty/alacritty.toml".source = config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/nixos-config/dotfiles/alacritty.toml";
+    "alacritty/alacritty.toml".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/alacritty.toml";
     
     # Noctalia (den ganzen Ordner verlinken!)
-    "noctalia".source = config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/nixos-config/dotfiles/noctalia";
+    "noctalia".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/noctalia";
   };
 
   # Git Identität (die bleibt am besten in Nix, da sie sich selten ändert)
