@@ -11,7 +11,7 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-    nixosConfigurations.mein-rechner = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.flocke = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
@@ -21,7 +21,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs; };
-          home-manager.users.briest = import ./modules/home.nix;
+          home-manager.users.cier = import ./modules/home.nix;
         }
       ];
     };

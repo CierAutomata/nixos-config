@@ -7,7 +7,7 @@
     ../../modules/desktop.nix
   ];
 
-  users.users.briest = {
+  users.users.cier = {
     isNormalUser = true;
     description = "Hauptbenutzer";
     extraGroups = [ "wheel" "networkmanager" "video" ];
