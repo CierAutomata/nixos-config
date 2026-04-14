@@ -26,6 +26,10 @@
     waybar       # Falls Noctalia mal nicht reicht
     hyprpaper    # Wallpaper
     hyprlock     # Lockscreen
+    firefox
+    rofi
+    brave
+    code
   ];
 
   networking.networkmanager.enable = true;
