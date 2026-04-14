@@ -140,7 +140,7 @@
 
       # Tastaturlayout in Hyprland
       input = {
-        kb_layout = "de";
+        kb_layout = "en";
       };
     };
   };
