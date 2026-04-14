@@ -14,15 +14,26 @@ require("lazy").setup({
   { "nvim-lualine/lualine.nvim" },
   { "nvim-telescope/telescope.nvim", dependencies = "nvim-lua/plenary.nvim" },
   { "lewis6991/gitsigns.nvim" },
-  { 
-    "neovim/nvim-lspconfig",
-    config = function()
-      local lspconfig = require('lspconfig')
-      lspconfig.nil_ls.setup{}
-      lspconfig.pyright.setup{}
-      lspconfig.ts_ls.setup{}
-    end
-  },
+  {
+      "neovim/nvim-lspconfig",
+      dependencies = {
+        "williamboman/mason.nvim", -- Falls du Mason nutzt
+        "williamboman/mason-lspconfig.nvim",
+      },
+      config = function()
+        -- Wir nutzen pcall (protected call), damit nvim nicht abstürzt,
+        -- falls das Plugin mal wirklich nicht da ist.
+        local ok, lspconfig = pcall(require, "lspconfig")
+        if not ok then return end
+
+        -- Hier deine Server konfigurieren
+        -- Beispiel für Nix (nil_ls):
+        lspconfig.nil_ls.setup({})
+        
+        -- Beispiel für Python:
+        lspconfig.pyright.setup({})
+      end,
+    },
 })
 
 -- Appearance
