@@ -21,11 +21,10 @@ local ok, lazy = pcall(require, "lazy")
 if not ok then
   return -- Stoppt die Ausführung, wenn lazy noch nicht geladen werden konnte
 end
-
+vim.pack.add { { src = "https://github.com/catppuccin/nvim", name = "catppuccin"} }
 -- 2. Plugin Setup
 require("lazy").setup({
   -- UI
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   { "nvim-lualine/lualine.nvim" },
   { "nvim-tree/nvim-tree.lua", dependencies = "nvim-tree/nvim-web-devicons" },
   
@@ -81,9 +80,7 @@ require("lazy").setup({
 })
 
 -- 3. Appearance Settings
-require("catppuccin").setup({ flavour = "mocha", transparent_background = true })
 vim.cmd.colorscheme "catppuccin"
-require('lualine').setup { options = { theme = 'catppuccin' } }
 
 -- 4. General Options & Keymaps
 vim.opt.number = true

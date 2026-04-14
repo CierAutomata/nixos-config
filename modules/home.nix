@@ -42,13 +42,13 @@
     enable = true;
     userName = "CierAutomata";
     userEmail = "CierAutomata@pm.me";
-    extraConfig = {
-      url = {
-        "git@github.com" = {
-          insteadOf = "https://github.com";
-        };
-      };
-    };
+    #extraConfig = {
+    #  url = {
+    #    "git@github.com" = {
+    #      insteadOf = "https://github.com";
+    #    };
+    #  };
+    #};
   };
 
 }
