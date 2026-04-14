@@ -30,10 +30,14 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter", 
     build = ":TSUpdate",
     config = function()
-      require'nvim-treesitter.configs'.setup { 
-        highlight = { enable = true },
-        ensure_installed = { "nix", "lua" } 
-      }
+      -- Wir nutzen pcall, falls das Modul noch fehlt
+      local ok, configs = pcall(require, "nvim-treesitter.configs")
+      if ok then
+        configs.setup({
+          highlight = { enable = true },
+          ensure_installed = { "nix", "lua" },
+        })
+      end
     end
   },
 
