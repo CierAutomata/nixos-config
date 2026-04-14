@@ -38,12 +38,12 @@
 
   programs.git = {
     enable = true;
-    userName = "Dein Echtname oder Handle";
-    userEmail = "deine-email@beispiel.de";
+    userName = "CierAutomata";
+    userEmail = "CierAutomata@pm.me";
     extraConfig = {
       init.defaultBranch = "main";
       # Falls du GitHub CLI nutzt, hilft das hier oft:
-      github.user = "DeinGitHubUsername";
+      github.user = "CierAutomata";
     };
   };
 
@@ -107,17 +107,20 @@
   general = {
     gaps_in = 5;
     gaps_out = 10;
+    border_size = 2;
+    # Farben MÜSSEN in Anführungszeichen, da Nix das 'rgba()' sonst nicht kennt
+    "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+    "col.inactive_border" = "rgba(595959aa)";
   };
 
   decoration = {
     rounding = 20;
-    rounding_power = 2;
 
     shadow = {
       enabled = true;
       range = 4;
       render_power = 3;
-      color = rgba(1a1a1aee);
+      color = "rgba(1a1a1aee)";
     };
 
     blur = {
