@@ -75,7 +75,36 @@
       ensure_installed = { "nix", "lua" } 
     }
   '';
+  # Hyprland User-Config
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = {
+      # Autostart
+      exec-once = [
+        "noctalia"
+      ];
 
+      # VM-Optimierung: Keine Schatten/Blur für bessere Performance
+      decoration = {
+        drop_shadow = false;
+        blur.enabled = false;
+      };
+
+      # Keybindings (Beispiel)
+      "$mainMod" = "SUPER";
+      bind = [
+        "$mainMod, RETURN, exec, alacritty"
+        "$mainMod, Q, killactive,"
+        "$mainMod, M, exit,"
+      ];
+
+      # Tastaturlayout in Hyprland
+      input = {
+        kb_layout = "de";
+      };
+    };
+  };
+  
   home.packages = with pkgs; [
     firefox
     nerd-fonts.jetbrains-mono
