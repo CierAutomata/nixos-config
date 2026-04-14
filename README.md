@@ -1,0 +1,2 @@
+# One-Line-Install
+`nix-shell -p git --run "git clone https://github.com/CierAutomata/nixos-niri-config ~/nixos-config && nixos-generate-config --show-hardware-config > ~/nixos-config/hosts/default/hardware-gen.nix && sudo nixos-rebuild switch --flake ~/nixos-config#mein-rechner"`

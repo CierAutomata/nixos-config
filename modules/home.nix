@@ -36,6 +36,17 @@
     ];
   };
 
+  programs.git = {
+    enable = true;
+    userName = "Dein Echtname oder Handle";
+    userEmail = "deine-email@beispiel.de";
+    extraConfig = {
+      init.defaultBranch = "main";
+      # Falls du GitHub CLI nutzt, hilft das hier oft:
+      github.user = "DeinGitHubUsername";
+    };
+  };
+
   xdg.configFile."nvim/init.lua".text = ''
     vim.g.mapleader = " "
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -53,6 +64,15 @@
       { "nvim-lualine/lualine.nvim" },
       { "nvim-telescope/telescope.nvim", dependencies = "nvim-lua/plenary.nvim" },
       { "lewis6991/gitsigns.nvim" },
+      { 
+        "neovim/nvim-lspconfig",
+        config = function()
+          local lspconfig = require('lspconfig')
+          lspconfig.nil_ls.setup{}
+          lspconfig.pyright.setup{}
+          lspconfig.ts_ls.setup{}
+        end
+      },
     })
 
     -- Appearance
@@ -84,12 +104,29 @@
         "noctalia"
       ];
 
-      # VM-Optimierung: Keine Schatten/Blur für bessere Performance
-      decoration = {
-        drop_shadow = false;
-        blur.enabled = false;
-      };
+  general = {
+    gaps_in = 5
+    gaps_out = 10
+  }
 
+  decoration = {
+    rounding = 20
+    rounding_power = 2
+
+    shadow = {
+      enabled = true
+      range = 4
+      render_power = 3
+      color = rgba(1a1a1aee)
+    }
+
+    blur = {
+      enabled = true
+      size = 3
+      passes = 2
+      vibrancy = 0.1696
+    }
+  }
       # Keybindings (Beispiel)
       "$mainMod" = "SUPER";
       bind = [
