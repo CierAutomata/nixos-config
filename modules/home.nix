@@ -2,151 +2,42 @@
 
 {
   home.stateVersion = "24.05";
+home.username = "deinName"; # <--- HIER DEINEN USER EINTRAGEN
+  home.homeDirectory = "/home/deinName";
 
-  # --- ALACRITTY CONFIG ---
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      window.opacity = 0.9;
-      window.padding = { x = 10; y = 10; };
-      font.normal.family = "JetBrainsMono Nerd Font";
-      
-      # Catppuccin Mocha Colors
-      colors = {
-        primary = {
-          background = "#1e1e2e";
-          foreground = "#cdd6f4";
-        };
-        cursor = { text = "#1e1e2e"; cursor = "#f5e0dc"; };
-        normal = {
-          black = "#45475a"; red = "#f38ba8"; green = "#a6e3a1"; yellow = "#f9e2af";
-          blue = "#89b4fa"; magenta = "#f5c2e7"; cyan = "#94e2d5"; white = "#bac2de";
-        };
-      };
-    };
+  # Pakete installieren, aber nicht über Nix konfigurieren
+  home.packages = with pkgs; [
+    hyprland
+    alacritty
+    noctalia-shell
+    discord
+    nerd-fonts.jetbrains-mono
+  ];
+
+  # --- OPTION 1: SYMKLINKS ZU DEINEN DOTFILES ---
+  
+  # Das hier verknüpft deine echten Dateien im Home-Verzeichnis
+  # Ändere "/home/deinName/nixos-config/..." zu deinem tatsächlichen Pfad!
+  
+  xdg.configFile = {
+    # Hyprland
+    "hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/nixos-config/dotfiles/hyprland.conf";
+    
+    # Neovim (den ganzen Ordner verlinken!)
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/nixos-config/dotfiles/nvim";
+    
+    # Alacritty
+    "alacritty/alacritty.toml".source = config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/nixos-config/dotfiles/alacritty.toml";
+    
+    # Noctalia (den ganzen Ordner verlinken!)
+    "noctalia".source = config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/nixos-config/dotfiles/noctalia";
   };
 
-  # --- NEOVIM IDE CONFIG ---
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    extraPackages = with pkgs; [
-      lua-language-server nil pyright ripgrep fd gcc
-      typescript-language-server
-    ];
-  };
-
+  # Git Identität (die bleibt am besten in Nix, da sie sich selten ändert)
   programs.git = {
     enable = true;
     userName = "CierAutomata";
     userEmail = "CierAutomata@pm.me";
-    extraConfig = {
-      init.defaultBranch = "main";
-      # Falls du GitHub CLI nutzt, hilft das hier oft:
-      github.user = "CierAutomata";
-    };
   };
 
-  xdg.configFile."nvim/init.lua".text = ''
-    vim.g.mapleader = " "
-    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-    if not vim.loop.fs_stat(lazypath) then
-      vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
-    end
-    vim.opt.rtp:prepend(lazypath)
-
-    require("lazy").setup({
-      { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-      { "neovim/lspconfig" },
-      { "hrsh7th/nvim-cmp", dependencies = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip" } },
-      { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-      { "nvim-tree/nvim-tree.lua", dependencies = "nvim-tree/nvim-web-devicons" },
-      { "nvim-lualine/lualine.nvim" },
-      { "nvim-telescope/telescope.nvim", dependencies = "nvim-lua/plenary.nvim" },
-      { "lewis6991/gitsigns.nvim" },
-      { 
-        "neovim/nvim-lspconfig",
-        config = function()
-          local lspconfig = require('lspconfig')
-          lspconfig.nil_ls.setup{}
-          lspconfig.pyright.setup{}
-          lspconfig.ts_ls.setup{}
-        end
-      },
-    })
-
-    -- Appearance
-    require("catppuccin").setup({ flavour = "mocha", transparent_background = true })
-    vim.cmd.colorscheme "catppuccin"
-    require('lualine').setup { options = { theme = 'catppuccin' } }
-    
-    -- Functionality
-    vim.opt.number = true
-    vim.opt.relativenumber = true
-    vim.opt.termguicolors = true
-    require("nvim-tree").setup()
-    vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
-    
-    -- LSP & Treesitter
-    local lspconfig = require('lspconfig')
-    lspconfig.nil_ls.setup{}
-    require'nvim-treesitter.configs'.setup { 
-      highlight = { enable = true },
-      ensure_installed = { "nix", "lua" } 
-    }
-  '';
-  # Hyprland User-Config
-  wayland.windowManager.hyprland = {
-    enable = true;
-    settings = {
-      # Autostart
-      exec-once = [
-        "noctalia"
-      ];
-
-  general = {
-    gaps_in = 5;
-    gaps_out = 10;
-    border_size = 2;
-    # Farben MÜSSEN in Anführungszeichen, da Nix das 'rgba()' sonst nicht kennt
-    "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-    "col.inactive_border" = "rgba(595959aa)";
-  };
-
-  decoration = {
-    rounding = 20;
-
-    shadow = {
-      enabled = true;
-      range = 4;
-      render_power = 3;
-      color = "rgba(1a1a1aee)";
-    };
-
-    blur = {
-      enabled = true;
-      size = 3;
-      passes = 2;
-      vibrancy = 0.1696;
-    };
-  };
-      # Keybindings (Beispiel)
-      "$mainMod" = "SUPER";
-      bind = [
-        "$mainMod, RETURN, exec, alacritty"
-        "$mainMod, Q, killactive,"
-        "$mainMod, M, exit,"
-      ];
-
-      # Tastaturlayout in Hyprland
-      input = {
-        kb_layout = "en";
-      };
-    };
-  };
-  
-  home.packages = with pkgs; [
-    firefox
-    nerd-fonts.jetbrains-mono
-  ];
 }
