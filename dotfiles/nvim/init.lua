@@ -2,7 +2,8 @@ vim.g.mapleader = " "
 
 -- 1. Lazy.nvim Bootstrapping
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
+if not vim.loop.fs_stat(lazypath) then
+  print("Bootstrapping lazy.nvim...")
   vim.fn.system({
     "git",
     "clone",
@@ -11,8 +12,15 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     "--branch=stable",
     lazypath,
   })
+  print("Done. Restart Neovim!")
 end
 vim.opt.rtp:prepend(lazypath)
+
+-- Prüfen, ob lazy wirklich da ist, bevor wir es aufrufen
+local ok, lazy = pcall(require, "lazy")
+if not ok then
+  return -- Stoppt die Ausführung, wenn lazy noch nicht geladen werden konnte
+end
 
 -- 2. Plugin Setup
 require("lazy").setup({
