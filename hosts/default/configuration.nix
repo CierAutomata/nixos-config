@@ -12,7 +12,7 @@
   users.users.cier = {
     isNormalUser = true;
     description = "Hauptbenutzer";
-    extraGroups = [ "wheel" "networkmanager" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "disk" "storage" ];
     hashedPasswordFile = config.sops.secrets.user-password.path;
   };
   users.mutableUsers = false; # Das ist der wichtigste Schalter!
@@ -29,7 +29,7 @@
       neededForUsers = true; # Wichtig, wenn es für den Login-User ist
     };
   };
-  
+  services.udisks2.enable = true; # for USB-Automount
   services.openssh = {
   enable = true;
   settings.PasswordAuthentication = false; # Sicherheit geht vor!
@@ -51,6 +51,7 @@
     sops
     age
     age-plugin-yubikey
+    udiskie 
   ];
   # Wichtig für Fonts
   fonts.packages = with pkgs; [
