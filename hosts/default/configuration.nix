@@ -32,6 +32,18 @@
     };
   };
   
+  services.openssh = {
+  enable = true;
+  settings.PasswordAuthentication = false; # Sicherheit geht vor!
+  # Dies stellt sicher, dass Ed25519 Keys generiert werden (sicherer & kürzer)
+  hostKeys = [
+    {
+      path = "/etc/ssh/ssh_host_ed25519_key";
+      type = "ed25519";
+    }
+  ];
+};
+  
   console.keyMap = "en";
   services.xserver.xkb = {
     layout = "en";
