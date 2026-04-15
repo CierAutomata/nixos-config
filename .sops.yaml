@@ -1,0 +1,10 @@
+keys:
+#  - &yubikey age1yubikey1.......  # Hier deinen YubiKey Public Key eintragen
+#  - &laptop  age167abc.........   # Hier den Public Key deines Laptops eintragen
+
+creation_rules:
+  - path_regex: secrets/secrets\.yaml$
+    key_groups:
+      - age:
+#        - *yubikey
+#        - *laptop

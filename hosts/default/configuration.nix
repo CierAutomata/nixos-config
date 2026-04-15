@@ -8,11 +8,28 @@
   ];
   networking.hostName = "flocke";
 
-  
+
   users.users.cier = {
     isNormalUser = true;
     description = "Hauptbenutzer";
     extraGroups = [ "wheel" "networkmanager" "video" ];
+    #hashedPasswordFile = config.sops.secrets.user-password.path;
+  };
+
+  sops = {
+    defaultSopsFile = ../../secrets/secrets.yaml; # Pfad zu deiner verschlüsselten Datei
+    defaultSopsFormat = "yaml";
+
+    age = {
+      # Dies nutzt den SSH-Key des Hosts als Entschlüsselungs-Key
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      # Wo die age-keys (vom YubiKey/Backup) liegen sollen
+      keyFile = "/var/lib/sops-nix/key.txt"; 
+      generateKey = true;
+    };
+    secrets.user-password = {
+      #neededForUsers = true; # Wichtig, wenn es für den Login-User ist
+    };
   };
   
   console.keyMap = "en";
@@ -20,7 +37,11 @@
     layout = "en";
     variant = "";
   };
-  
+  environment.systemPackages = with pkgs; [
+    sops
+    age
+    age-plugin-yubikey
+  ];
   # Wichtig für Fonts
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
