@@ -86,6 +86,10 @@ vim.cmd.colorscheme "catppuccin"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
+vim.opt.tabstop = 2   
+vim.opt.shiftwidth = 2 
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
 
 require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
