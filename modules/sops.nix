@@ -18,9 +18,9 @@ in
     };
 
     # sops-nix maps this flat secret name to `user-password` in secrets.yaml
-    secrets.user-password = {
-      neededForUsers = true;
-    };
+    #secrets.user-password = {
+    #  neededForUsers = true;
+    #};
   };
 
   # Note: Make sure the private Age key exists at `keyPath` on the machine

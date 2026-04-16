@@ -8,6 +8,9 @@
     ../../modules/core.nix
     ../../modules/tools.nix
     ../../modules/desktop.nix
+    ../../modules/wm-hyprland.nix
+    # ../../modules/wm-sway.nix       # Uncomment to use Sway instead
+    # ../../modules/wm-i3.nix         # Uncomment to use i3 instead
     ../../modules/sops.nix
   ];
 
@@ -17,7 +20,7 @@
     isNormalUser = true;
     description = "Hauptbenutzer";
     extraGroups = [ "wheel" "networkmanager" "video" "disk" "storage" ];
-    hashedPasswordFile = config.sops.secrets.user-password.path;
+    #hashedPasswordFile = config.sops.secrets.user-password.path;
   };
 
   users.mutableUsers = true;
