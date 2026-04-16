@@ -273,6 +273,6 @@ echo "Bitte kontrolliere in /etc/nixos/configuration.nix, dass folgende Zeile ge
 echo "  nix.settings.experimental-features = [ \"nix-command\" \"flakes\" ];"
 
 echo "Starte nixos-rebuild..."
-sudo env NIX_CONFIG="experimental-features = nix-command flakes" nixos-rebuild switch --flake "$REPO_ROOT#${HOST_NAME}"
+sudo env NIX_CONFIG="experimental-features = nix-command flakes" nixos-rebuild boot --flake "$REPO_ROOT#${HOST_NAME}"
 
 echo "Fertig. Wenn der Rebuild erfolgreich war, kannst du das Skript künftig ohne NIX_CONFIG ausführen, sobald flakes dauerhaft aktiviert sind."
