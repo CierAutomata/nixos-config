@@ -8,8 +8,8 @@
     ../../modules/core.nix
     ../../modules/tools.nix
     ../../modules/desktop.nix
-    ../../modules/wm/hyprland.nix
-    # ../../modules/wm/niri.nix        # Uncomment to use Niri instead
+    ../../modules/WM/hyprland.nix
+    # ../../modules/WM/niri.nix        # Uncomment to use Niri instead
     # ../../modules/wm/sway.nix        # Uncomment to use Sway instead
     # ../../modules/wm/i3.nix          # Uncomment to use i3 instead
     ../../modules/sops.nix
