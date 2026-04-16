@@ -13,39 +13,25 @@
     discord
     neovim
     gh
-    #libnotify
     nerd-fonts.jetbrains-mono
   ];
 
-  # --- OPTION 1: SYMKLINKS ZU DEINEN DOTFILES ---
-  
-  # Das hier verknüpft deine echten Dateien im Home-Verzeichnis.
-  # Die Quellen liegen im Repo und werden mit mkOutOfStoreSymlink verlinkt.
-  
+  let
+    repo = "${config.home.homeDirectory}/repos/nixos-niri-config";
+    dot = repo + "/dotfiles";
+  in
+
   xdg.configFile = {
-    # Hyprland
-    "hypr".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/hypr;
-
-    # Neovim (den ganzen Ordner verlinken!)
-    "nvim".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/nvim;
-
-    # Alacritty
-    "alacritty".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/alacritty;
-
-    # Noctalia (den ganzen Ordner verlinken!)
-    "noctalia".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/noctalia;
+    "hypr".source = config.lib.file.mkOutOfStoreSymlink (dot + "/hypr");
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink (dot + "/nvim");
+    "alacritty".source = config.lib.file.mkOutOfStoreSymlink (dot + "/alacritty");
+    "noctalia".source = config.lib.file.mkOutOfStoreSymlink (dot + "/noctalia");
   };
 
   home.file = {
-    ".bashrc".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/.bashrc;
+    ".bashrc".source = config.lib.file.mkOutOfStoreSymlink (dot + "/.bashrc");
   };
   
-#  services.mako = {
-#    enable = true;
-#    defaultTimeout = 5000;
-#    backgroundColor = "#1e1e2e";
-#  };
-
   # Git Identität (die bleibt am besten in Nix, da sie sich selten ändert)
   programs.git = {
     enable = true;
