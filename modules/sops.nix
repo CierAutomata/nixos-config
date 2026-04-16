@@ -17,9 +17,9 @@ in
 
     # Backwards-compatible mapping: some hosts expect the older
     # `secrets.user-password` key. Keep it for compatibility.
-    secrets.user-password = {
-      neededForUsers = true;
-    };
+    #secrets.user-password = {
+    #  neededForUsers = true;
+    #};
 
     # Expose the nested `users.cier.hashedPassword` key from
     # secrets/secrets.yaml so the host config can reference it directly.
