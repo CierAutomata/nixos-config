@@ -17,8 +17,14 @@ in
       generateKey = false;
     };
 
-    secrets.user-password = {
-      neededForUsers = true;
+    # Expose the nested `users.cier.hashedPassword` key from
+    # secrets/secrets.yaml so the host config can reference it directly.
+    secrets.users = {
+      cier = {
+        hashedPassword = {
+          neededForUsers = true;
+        };
+      };
     };
   };
 
