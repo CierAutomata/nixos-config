@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  # Hyprland window manager configuration
+  # Hyprland window manager configurations
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
