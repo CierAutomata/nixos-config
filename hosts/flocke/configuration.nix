@@ -17,10 +17,7 @@
     isNormalUser = true;
     description = "Hauptbenutzer";
     extraGroups = [ "wheel" "networkmanager" "video" "disk" "storage" ];
-    # hashedPasswordFile is disabled while secrets/secrets.yaml is being rotated
-    # and the correct private age key is not yet available. Re-enable when
-    # `secrets/secrets.yaml` can be decrypted reliably.
-    # hashedPasswordFile = config.sops.secrets.user-password.path;
+    hashedPasswordFile = config.sops.secrets.user-password.path;
   };
 
   users.mutableUsers = false;
