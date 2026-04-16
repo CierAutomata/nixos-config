@@ -1,15 +1,14 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-
   programs.uwsm.enable = true;
-  # Hyprland aktivieren
+
   programs.hyprland = {
-  enable = true;
-  xwayland.enable = true;
-  withUWSM = true; 
+    enable = true;
+    xwayland.enable = true;
+    withUWSM = true;
   };
-  # Greetd Login-Manager (angepasst auf Hyprland)
+
   services.greetd = {
     enable = true;
     settings = {
@@ -25,10 +24,9 @@
     discord
     alacritty
     greetd.tuigreet
-    # Nützliche Tools für Hyprland
-    waybar       # Falls Noctalia mal nicht reicht
-    hyprpaper    # Wallpaper
-    hyprlock     # Lockscreen
+    waybar
+    hyprpaper
+    hyprlock
     firefox
     rofi
     brave
@@ -36,12 +34,20 @@
     yazi
   ];
 
-  networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
-  services.upower.enable = true;  
+  services.upower.enable = true;
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [ "hyprland" ];
+      noctalia.default = [ "wlr" ];
+    };
   };
 }

@@ -1,0 +1,25 @@
+{ pkgs, ... }:
+{
+  services.udisks2.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    sops
+    age
+    age-plugin-yubikey
+    udiskie
+    xdg-utils
+  ];
+
+  console.keyMap = "en";
+  services.xserver.xkb = {
+    layout = "en";
+    variant = "";
+  };
+
+  xdg.mime = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = [ "yazi.desktop" ];
+    };
+  };
+}

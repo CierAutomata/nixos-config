@@ -24,20 +24,20 @@
   
   xdg.configFile = {
     # Hyprland
-    "hypr".source = config.lib.file.mkOutOfStoreSymlink ./dotfiles/hypr;
+    "hypr".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/hypr;
 
     # Neovim (den ganzen Ordner verlinken!)
-    "nvim".source = config.lib.file.mkOutOfStoreSymlink ./dotfiles/nvim;
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/nvim;
 
     # Alacritty
-    "alacritty".source = config.lib.file.mkOutOfStoreSymlink ./dotfiles/alacritty;
+    "alacritty".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/alacritty;
 
     # Noctalia (den ganzen Ordner verlinken!)
-    "noctalia".source = config.lib.file.mkOutOfStoreSymlink ./dotfiles/noctalia;
+    "noctalia".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/noctalia;
   };
 
   home.file = {
-    ".bashrc".source = config.lib.file.mkOutOfStoreSymlink ./dotfiles/.bashrc;
+    ".bashrc".source = config.lib.file.mkOutOfStoreSymlink ../dotfiles/.bashrc;
   };
   
 #  services.mako = {
