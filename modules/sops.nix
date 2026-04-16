@@ -2,12 +2,14 @@
 let
   # Path where the private age key is expected during activation
   keyPath = "/home/cier/.config/sops/age/keys.txt";
+  # Absolute path to secrets file
+  secretsFile = ../secrets/secrets.yaml;
 in
 {
   # Enable sops configuration unconditionally. The build that evaluates the
   # flake must provide the private Age key at `keyPath` (see notes below).
   sops = {
-    defaultSopsFile = ../secrets/secrets.yaml;
+    defaultSopsFile = secretsFile;
     defaultSopsFormat = "yaml";
 
     age = {
@@ -15,20 +17,11 @@ in
       generateKey = false;
     };
 
-    # Backwards-compatible mapping: some hosts expect the older
-    # `secrets.user-password` key. Keep it for compatibility.
-    #secrets.user-password = {
-    #  neededForUsers = true;
-    #};
-
-    # Expose the nested `users.cier.hashedPassword` key from
-    # secrets/secrets.yaml so the host config can reference it directly.
-    secrets.users = {
-      cier = {
-        hashedPassword = {
-          neededForUsers = true;
-        };
-      };
+    # sops-nix uses flat secret names. This maps to `users.cier.hashedPassword`
+    # in the YAML structure via the `path` attribute.
+    secrets.user-password = {
+      neededForUsers = true;
+      path = "users/cier/hashedPassword";
     };
   };
 
