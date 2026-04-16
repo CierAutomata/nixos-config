@@ -1,6 +1,6 @@
 keys:
 #  - &yubikey age1yubikey1.......  # Hier deinen YubiKey Public Key eintragen
-  - &laptop  age1xwuth57df84sq0nxn8czxmdm6h3h2cyfsgvt3ydm63nv0r4w7d4qt2xal2
+  - &laptop  age15uthmkd6u2fgfvy28p4nl9pm42hw5rp2aa7sqa9yynx9cajrrdtsdh25u7
 creation_rules:
   - path_regex: secrets/secrets\.yaml$
     key_groups:
