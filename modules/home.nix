@@ -1,5 +1,10 @@
 { pkgs, config, ... }:
 
+let
+  repo = "${config.home.homeDirectory}/repos/nixos-niri-config";
+  dot = repo + "/dotfiles";
+in
+
 {
   home.stateVersion = "26.05";
   home.username = "cier"; # <--- HIER DEINEN USER EINTRAGEN
@@ -15,11 +20,6 @@
     gh
     nerd-fonts.jetbrains-mono
   ];
-
-  let
-    repo = "${config.home.homeDirectory}/repos/nixos-niri-config";
-    dot = repo + "/dotfiles";
-  in
 
   xdg.configFile = {
     "hypr".source = config.lib.file.mkOutOfStoreSymlink (dot + "/hypr");
