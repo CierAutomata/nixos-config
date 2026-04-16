@@ -17,7 +17,7 @@
     isNormalUser = true;
     description = "Hauptbenutzer";
     extraGroups = [ "wheel" "networkmanager" "video" "disk" "storage" ];
-    hashedPasswordFile = config.sops.secrets.users.cier.hashedPassword.path;
+    hashedPasswordFile = config.sops.secrets.user-password.path;
   };
 
   users.mutableUsers = true;
