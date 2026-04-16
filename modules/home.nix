@@ -22,10 +22,10 @@ in
   ];
 
   xdg.configFile = {
-    "hypr".source = config.lib.file.mkOutOfStoreSymlink (dot + "/hypr");
-    "nvim".source = config.lib.file.mkOutOfStoreSymlink (dot + "/nvim");
-    "alacritty".source = config.lib.file.mkOutOfStoreSymlink (dot + "/alacritty");
-    "noctalia".source = config.lib.file.mkOutOfStoreSymlink (dot + "/noctalia");
+    "hypr".source = config.lib.file.mkOutOfStoreSymlink (dot + "/hypr/");
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink (dot + "/nvim/");
+    "alacritty".source = config.lib.file.mkOutOfStoreSymlink (dot + "/alacritty/");
+    "noctalia".source = config.lib.file.mkOutOfStoreSymlink (dot + "/noctalia/");
   };
 
   home.file = {
