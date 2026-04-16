@@ -25,7 +25,7 @@
     else null;
   };
 
-  users.mutableUsers = false;
+  users.mutableUsers = true;
 
   system.stateVersion = "26.05";
 }
