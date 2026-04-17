@@ -16,8 +16,9 @@
     isNormalUser = true;
     description = "Hauptbenutzer";
     extraGroups = [ "wheel" "networkmanager" "disk" "storage" ];
+    hashedPasswordFile = config.sops.secrets.user-password.path;
   };
 
-  users.mutableUsers = true;
+  users.mutableUsers = false;
   system.stateVersion = "26.05";
 }
