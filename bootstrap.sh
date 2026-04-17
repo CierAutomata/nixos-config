@@ -264,7 +264,7 @@ if [ ! -f "$HARDWARE_NIXOS" ]; then
     echo ""
     echo "Kopiere /etc/nixos/hardware-configuration.nix → $HARDWARE_NIXOS"
     sudo cp /etc/nixos/hardware-configuration.nix "$HARDWARE_NIXOS"
-    sudo chown "$USER":"$USER" "$HARDWARE_NIXOS"
+    sudo chown "$(id -u)":"$(id -g)" "$HARDWARE_NIXOS"
   else
     echo "" >&2
     echo "Warnung: /etc/nixos/hardware-configuration.nix nicht gefunden." >&2
