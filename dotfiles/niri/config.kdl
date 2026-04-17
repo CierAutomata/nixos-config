@@ -2,8 +2,8 @@
 
 // ── Autostart ─────────────────────────────────────────────────────────────────
 
-spawn-at-startup "qs" "-c" "noctalia-shell"
-spawn-at-startup "sh" "-c" "udiskie -f 'alacritty -e yazi'"
+spawn-at-startup "noctalia-shell"
+spawn-at-startup "udiskie -f 'alacritty -e yazi'"
 
 // ── Input ─────────────────────────────────────────────────────────────────────
 
