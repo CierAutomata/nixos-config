@@ -14,7 +14,7 @@
 
   users.users.cier = {
     isNormalUser = true;
-    description = "Hauptbenutzer";
+    description = "CierAutomata";
     extraGroups = [ "wheel" "networkmanager" "disk" "storage" ];
     hashedPasswordFile = config.sops.secrets.user-password.path;
   };
