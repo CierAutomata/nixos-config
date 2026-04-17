@@ -4,7 +4,7 @@
   imports = [ ./hardware-conf.nix ];
 
   myConfig = {
-    wm = "hyprland";
+    wm = "niri";
     isLaptop = true;
     userName = "cier";
     # configDir = "/home/cier/nixos-config"; # Standard, nur ändern wenn Repo woanders liegt
