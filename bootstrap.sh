@@ -112,7 +112,7 @@ create_host_skeleton() {
   user_name="${user_name:-cier}"
 
   cat >"$dir/configuration.nix" <<EOF
-{ ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # hardware-conf.nix wird von bootstrap.sh generiert (gitignored).
