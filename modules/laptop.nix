@@ -13,7 +13,10 @@ lib.mkIf config.myConfig.isLaptop {
   };
 
   # Bildschirmhelligkeit ohne sudo
-  programs.light.enable = true;
+  environment.systemPackages = [ pkgs.brightnessctl ];
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
+  '';
   users.users.${config.myConfig.userName}.extraGroups = [ "video" ];
 
   # Lid-Switch Verhalten
