@@ -251,10 +251,16 @@ EOF
 { ... }:
 {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    ./hardware-nixos.nix
     ./hardware-extra.nix
   ];
 }
+EOF
+
+  cat >"$dir/hardware-nixos.nix" <<'EOF'
+# Placeholder — von bootstrap.sh mit /etc/nixos/hardware-configuration.nix
+# überschrieben (nur im Working Tree). git sieht immer diese Datei.
+{ ... }: {}
 EOF
 
   cat >"$dir/hardware-extra.nix" <<EOF
@@ -276,7 +282,7 @@ EOF
 }
 EOF
 
-  git -C "$REPO_ROOT" add "$dir/configuration.nix" "$dir/hardware.nix" "$dir/hardware-extra.nix"
+  git -C "$REPO_ROOT" add "$dir/configuration.nix" "$dir/hardware.nix" "$dir/hardware-extra.nix" "$dir/hardware-nixos.nix"
   git -C "$REPO_ROOT" commit -m "bootstrap: Host '$host' angelegt"
 
   echo ""
@@ -345,10 +351,22 @@ elif [ ! -d "$REPO_ROOT/hosts/$HOST_NAME" ]; then
   esac
 fi
 
-if [ ! -f /etc/nixos/hardware-configuration.nix ]; then
+# ── Hardware-Config einspielen ────────────────────────────────────────────────
+# hardware-nixos.nix ist als Placeholder committet. bootstrap.sh überschreibt
+# ihn im Working Tree mit der echten /etc/nixos/hardware-configuration.nix.
+# git sieht dank --skip-worktree immer den Placeholder — nie die echte Config.
+
+HARDWARE_NIXOS="$REPO_ROOT/hosts/$HOST_NAME/hardware-nixos.nix"
+HARDWARE_NIXOS_REL="hosts/$HOST_NAME/hardware-nixos.nix"
+
+if [ -f /etc/nixos/hardware-configuration.nix ]; then
+  cp /etc/nixos/hardware-configuration.nix "$HARDWARE_NIXOS"
+  git -C "$REPO_ROOT" update-index --skip-worktree "$HARDWARE_NIXOS_REL"
+  echo "✓ hardware-nixos.nix mit echter Hardware-Config befüllt (git sieht nur Placeholder)."
+else
   echo "" >&2
   echo "Warnung: /etc/nixos/hardware-configuration.nix nicht gefunden." >&2
-  echo "Sicherstellen dass nixos-generate-config ausgeführt wurde." >&2
+  echo "nixos-generate-config ausführen und bootstrap erneut starten." >&2
 fi
 
 # ── Schlüssel-Setup ───────────────────────────────────────────────────────────
