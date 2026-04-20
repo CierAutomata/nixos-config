@@ -1,9 +1,13 @@
-keys:
-#  - &yubikey age1yubikey1.......  # Hier deinen YubiKey Public Key eintragen
-  - &laptop  age15uthmkd6u2fgfvy28p4nl9pm42hw5rp2aa7sqa9yynx9cajrrdtsdh25u7
 creation_rules:
   - path_regex: secrets/secrets\.yaml$
     key_groups:
       - age:
-#        - *yubikey
-        - *laptop
+        # === YubiKey (Primärschlüssel) ===
+        # Einmalig einrichten:  age-plugin-yubikey --generate
+        # Public Key abrufen:   age-plugin-yubikey --list
+        # Dann unkommentieren und ausführen: sops updatekeys secrets/secrets.yaml
+        # - age1yubikey1EINTRAGEN
+        # === Übergangslösung: alter Laptop-Key ===
+        # Entfernen sobald YubiKey eingerichtet und sops updatekeys ausgeführt wurde.
+        - age15uthmkd6u2fgfvy28p4nl9pm42hw5rp2aa7sqa9yynx9cajrrdtsdh25u7
+        # === Host-SSH-Keys (automatisch von bootstrap.sh verwaltet) ===

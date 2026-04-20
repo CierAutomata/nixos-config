@@ -7,14 +7,21 @@ REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 usage() {
   cat <<EOF
-Verwendung: $0 [HOST] [AGE_KEY_SOURCE]
+Verwendung: $0 [HOST] [ALTER_AGE_KEY]
 
 Automatisiert die Einrichtung nach einer frischen NixOS-Installation.
 
 HOST            Optionaler Hostname (z. B. flocke, milky).
                 Ohne Argument: interaktive Auswahl.
-AGE_KEY_SOURCE  Optionaler Pfad zum privaten age-Key. Ohne Angabe wird
-                automatisch auf typischen USB-Pfaden gesucht.
+ALTER_AGE_KEY   Optionaler Pfad zum alten privaten age-Key (Übergangslösung).
+                Ohne Angabe wird automatisch auf typischen USB-Pfaden gesucht.
+                Wird nur für 'sops updatekeys' benötigt, falls noch kein
+                YubiKey in .sops.yaml eingetragen ist.
+
+Schlüssel-Strategie:
+  Primär:     YubiKey via age-plugin-yubikey (manuell in .sops.yaml eintragen)
+  Sekundär:   SSH-Host-Key (automatisch von diesem Skript registriert)
+  Übergang:   Alter age-Key aus Datei (nur bis YubiKey eingerichtet)
 
 Beispiele:
   ./bootstrap.sh
@@ -31,6 +38,26 @@ if [ ! -f "$REPO_ROOT/flake.nix" ]; then
 fi
 if ! command -v nix >/dev/null 2>&1; then
   echo "Fehler: nix ist nicht installiert." >&2; exit 1
+fi
+
+# ── Tool-Bootstrap via nix shell ──────────────────────────────────────────────
+# Vor dem ersten NixOS-Rebuild sind sops, age-plugin-yubikey und ssh-to-age
+# noch nicht installiert. Falls sie fehlen, re-executed sich das Skript selbst
+# in einem temporären nix shell mit allen nötigen Tools.
+_TOOLS_MISSING=false
+for _tool in sops age-plugin-yubikey ssh-to-age; do
+  command -v "$_tool" >/dev/null 2>&1 || _TOOLS_MISSING=true
+done
+
+if [ "$_TOOLS_MISSING" = true ]; then
+  echo "Benötigte Tools nicht gefunden — lade via nix shell (einmalig)..."
+  exec nix --extra-experimental-features 'nix-command flakes' \
+    shell \
+    nixpkgs#sops \
+    nixpkgs#age \
+    nixpkgs#age-plugin-yubikey \
+    nixpkgs#ssh-to-age \
+    --command bash "$0" "$@"
 fi
 
 HOST_NAME=""
@@ -65,6 +92,97 @@ find_key_file() {
         echo "Ungültige Auswahl." >&2
       done ;;
   esac
+}
+
+# Hängt einen age-Public-Key an den age-Block in .sops.yaml an.
+# Erwartet: $1 = age-Public-Key, $2 = Kommentar (z. B. "flocke-ssh")
+append_age_key_to_sops() {
+  local key="$1"
+  local comment="$2"
+  local sops_yaml="$REPO_ROOT/.sops.yaml"
+  local new_line="        - ${key}  # ${comment}"
+
+  awk -v line="$new_line" '
+  {
+    buf[NR] = $0
+    if ($0 ~ /^[[:space:]]{8}- age/) last = NR
+  }
+  END {
+    for (i = 1; i <= NR; i++) {
+      print buf[i]
+      if (i == last) print line
+    }
+  }
+  ' "$sops_yaml" > "${sops_yaml}.tmp" && mv "${sops_yaml}.tmp" "$sops_yaml"
+}
+
+# Versucht den YubiKey-age-Public-Key via age-plugin-yubikey zu ermitteln
+# und trägt ihn in .sops.yaml ein, falls noch nicht vorhanden.
+# Gibt 0 zurück wenn ein Key hinzugefügt wurde, 1 sonst.
+detect_and_add_yubikey() {
+  local sops_yaml="$REPO_ROOT/.sops.yaml"
+
+  if ! command -v age-plugin-yubikey >/dev/null 2>&1; then
+    return 1
+  fi
+
+  local yubikey_key
+  yubikey_key=$(age-plugin-yubikey --list 2>/dev/null | grep -E '^age1yubikey1' | head -1)
+
+  if [ -z "$yubikey_key" ]; then
+    return 1
+  fi
+
+  if grep -qF "$yubikey_key" "$sops_yaml"; then
+    echo "✓ YubiKey bereits in .sops.yaml eingetragen."
+    return 1
+  fi
+
+  echo "YubiKey erkannt: $yubikey_key"
+  echo "Trage YubiKey in .sops.yaml ein..."
+  # Unkommentiere und ersetze die Vorlage-Zeile falls vorhanden, sonst anhängen
+  if grep -q '# - age1yubikey1EINTRAGEN' "$sops_yaml"; then
+    sed -i "s|# - age1yubikey1EINTRAGEN|        - ${yubikey_key}  # yubikey|" "$sops_yaml"
+  else
+    append_age_key_to_sops "$yubikey_key" "yubikey"
+  fi
+  return 0
+}
+
+# Holt den SSH-Host-Ed25519-Key und registriert ihn als age-Empfänger in .sops.yaml.
+# Gibt 0 zurück wenn ein Key hinzugefügt wurde, 1 sonst.
+setup_ssh_age_key() {
+  local host="$1"
+  local ssh_pub="/etc/ssh/ssh_host_ed25519_key.pub"
+  local sops_yaml="$REPO_ROOT/.sops.yaml"
+
+  if [ ! -f "$ssh_pub" ]; then
+    echo "Warnung: $ssh_pub nicht gefunden — SSH-Age-Key übersprungen." >&2
+    return 1
+  fi
+
+  local age_pubkey
+  if command -v ssh-to-age >/dev/null 2>&1; then
+    age_pubkey=$(ssh-to-age < "$ssh_pub" 2>/dev/null)
+  else
+    echo "ssh-to-age nicht gefunden, nutze nix run..."
+    age_pubkey=$(nix run nixpkgs#ssh-to-age -- < "$ssh_pub" 2>/dev/null)
+  fi
+
+  if [ -z "$age_pubkey" ]; then
+    echo "Fehler: SSH-Key-Konvertierung fehlgeschlagen." >&2
+    return 1
+  fi
+
+  if grep -qF "$age_pubkey" "$sops_yaml"; then
+    echo "✓ SSH-Host-Key für '$host' bereits in .sops.yaml eingetragen."
+    return 1
+  fi
+
+  echo "SSH-Host-Key ($host): $age_pubkey"
+  echo "Trage SSH-Host-Key in .sops.yaml ein..."
+  append_age_key_to_sops "$age_pubkey" "${host}-ssh"
+  return 0
 }
 
 # Erstellt hosts/<host>/configuration.nix mit dem neuen myConfig-Format.
@@ -309,17 +427,25 @@ HARDWARE_CONF_REL="hosts/$HOST_NAME/hardware-conf.nix"
 git -C "$REPO_ROOT" add "$HARDWARE_NIXOS_REL" "$HARDWARE_CONF_REL" 2>/dev/null || true
 git -C "$REPO_ROOT" update-index --skip-worktree "$HARDWARE_NIXOS_REL" 2>/dev/null || true
 
-# ── age-Key kopieren ──────────────────────────────────────────────────────────
+# ── Schlüssel-Setup ───────────────────────────────────────────────────────────
+#
+# Strategie:
+#   1. Alter age-Key (Übergangslösung): von USB kopieren → für sops updatekeys
+#   2. YubiKey auto-detektieren und in .sops.yaml eintragen
+#   3. SSH-Host-Key als age-Empfänger registrieren
+#   4. Bei Änderungen: sops updatekeys ausführen und committen
 
+SOPS_YAML="$REPO_ROOT/.sops.yaml"
+SECRETS_YAML="$REPO_ROOT/secrets/secrets.yaml"
+sops_yaml_changed=false
+
+echo ""
+echo "=== Schlüssel-Setup ==="
+
+# 1. Alter Key (Übergangslösung) -----------------------------------------------
 if [ -z "$KEY_SOURCE" ]; then
-  echo ""
-  echo "Suche nach key.txt / keys.txt auf USB-Mounts..."
   KEY_SOURCE="$(find_key_file || true)"
-  if [ -n "$KEY_SOURCE" ]; then
-    echo "Gefunden: $KEY_SOURCE"
-  else
-    echo "Kein age-Key gefunden — wird übersprungen."
-  fi
+  [ -n "$KEY_SOURCE" ] && echo "Alter age-Key gefunden: $KEY_SOURCE"
 fi
 
 if [ -n "$KEY_SOURCE" ]; then
@@ -327,14 +453,45 @@ if [ -n "$KEY_SOURCE" ]; then
     echo "Fehler: Key-Datei nicht gefunden: $KEY_SOURCE" >&2; exit 1
   fi
   mkdir -p "$HOME/.config/sops/age"
-  echo "Kopiere age-Key → ~/.config/sops/age/keys.txt"
+  echo "Kopiere alter age-Key → ~/.config/sops/age/keys.txt (Übergangslösung)"
   cp "$KEY_SOURCE" "$HOME/.config/sops/age/keys.txt"
 fi
 
+# 2. YubiKey auto-detektieren --------------------------------------------------
+if detect_and_add_yubikey; then
+  sops_yaml_changed=true
+fi
+
+# 3. SSH-Host-Key registrieren -------------------------------------------------
+if setup_ssh_age_key "$HOST_NAME"; then
+  sops_yaml_changed=true
+fi
+
+# 4. SOPS-Empfänger aktualisieren ----------------------------------------------
+if [ "$sops_yaml_changed" = true ]; then
+  echo ""
+  echo "Aktualisiere SOPS-Empfänger in secrets.yaml..."
+  echo "  → Benötigt: YubiKey eingesteckt ODER ~/.config/sops/age/keys.txt vorhanden."
+
+  if ! sops updatekeys --yes "$SECRETS_YAML"; then
+    echo "" >&2
+    echo "Fehler: sops updatekeys fehlgeschlagen." >&2
+    echo "Voraussetzungen für die Entschlüsselung:" >&2
+    echo "  • YubiKey eingesteckt (age-plugin-yubikey), ODER" >&2
+    echo "  • ~/.config/sops/age/keys.txt (alter Key) vorhanden" >&2
+    git -C "$REPO_ROOT" checkout -- .sops.yaml
+    exit 1
+  fi
+
+  git -C "$REPO_ROOT" add .sops.yaml secrets/secrets.yaml
+  git -C "$REPO_ROOT" commit -m "bootstrap: SOPS-Empfänger aktualisiert (${HOST_NAME}-ssh hinzugefügt)"
+  echo "✓ .sops.yaml und secrets.yaml aktualisiert und committet."
+fi
+
 if [ ! -f "$HOME/.config/sops/age/keys.txt" ]; then
-  echo "" >&2
-  echo "Warnung: ~/.config/sops/age/keys.txt fehlt." >&2
-  echo "Secrets können nicht entschlüsselt werden. Key ablegen und Rebuild erneut starten." >&2
+  echo ""
+  echo "Hinweis: ~/.config/sops/age/keys.txt fehlt (kein alter Key vorhanden)."
+  echo "  Beim ersten Rebuild wird der SSH-Host-Key zur Entschlüsselung genutzt."
 fi
 
 # ── Rebuild ───────────────────────────────────────────────────────────────────

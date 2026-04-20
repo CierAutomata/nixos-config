@@ -6,6 +6,7 @@
     sops
     age
     age-plugin-yubikey
+    ssh-to-age
     udiskie
     xdg-utils
   ];
