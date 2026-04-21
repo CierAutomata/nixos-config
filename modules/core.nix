@@ -13,7 +13,8 @@
       { type = "ed25519"; path = "/etc/ssh/ssh_host_ed25519_key"; }
     ];
   };
-  time.timeZone = "Europe/Berlin";
+
+  services.pcscd.enable = true;
   i18n.defaultLocale = "de_DE.UTF-8";
 
   programs.git.enable = true;
