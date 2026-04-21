@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 {
   sops = {
@@ -13,9 +13,6 @@
       generateKey = false;
     };
     
-    # YubiKey-Plugin für manuelle SOPS-Befehle
-    plugins = [ pkgs.age-plugin-yubikey ];
-
     secrets.user-password = {
       key = "users/${config.myConfig.userName}/hashedPassword";
       neededForUsers = true;
