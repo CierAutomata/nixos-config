@@ -10,4 +10,5 @@ creation_rules:
         # === Übergangslösung: alter Laptop-Key ===
         # Entfernen sobald YubiKey eingerichtet und sops updatekeys ausgeführt wurde.
         - age15uthmkd6u2fgfvy28p4nl9pm42hw5rp2aa7sqa9yynx9cajrrdtsdh25u7
+        - age1wyq8k7a2ffdvwxx4esgh2xwgvhk4f5l78lm9mextgxjdlt5dhpjq2mcgcl  # flocke-ssh
         # === Host-SSH-Keys (automatisch von bootstrap.sh verwaltet) ===
