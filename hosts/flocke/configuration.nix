@@ -3,6 +3,8 @@
 {
   imports = [ ./hardware.nix ];
 
+  nixpkgs.hostPlatform = "x86_64-linux";
+
   myConfig = {
     wm = "niri";
     isLaptop = true;
