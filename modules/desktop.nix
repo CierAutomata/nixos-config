@@ -1,15 +1,32 @@
 { config, pkgs, lib, ... }:
 
 {
-  # UWSM nur wenn ein WM aktiv ist
   programs.uwsm.enable = config.myConfig.wm != "none";
 
   # Systemweite Grundpakete für Desktop-Nutzung
   environment.systemPackages = with pkgs; [
     greetd.tuigreet
     yazi
+    #sops
+    #age
+    #age-plugin-yubikey
+    ssh-to-age
+    udiskie
+    xdg-utils
+    nautilus
   ] ++ config.myConfig.extraSystemPackages;
 
-  hardware.bluetooth.enable = true;
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
+  ];
+  services.udisks2.enable = true;
+  
+  xdg.mime = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = [ "yazi.desktop" ];
+    };
+  };
   services.upower.enable = true;
 }

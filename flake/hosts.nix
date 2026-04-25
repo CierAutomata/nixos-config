@@ -5,14 +5,14 @@
 let
   sharedModules = [
     inputs.home-manager.nixosModules.home-manager
-    inputs.sops-nix.nixosModules.sops
+    #inputs.sops-nix.nixosModules.sops
     ../modules/options.nix
     ../modules/home-manager-setup.nix
     ../modules/boot.nix
     ../modules/nix-setup.nix
     ../modules/core.nix
     ../modules/tools.nix
-    ../modules/desktop.nix
+    #../modules/desktop.nix
     ../modules/laptop.nix
     ../modules/WM/hyprland.nix
     ../modules/WM/niri.nix

@@ -1,5 +1,5 @@
 {
-  description = "NixOS Flake - Niri, Noctalia & Neovim IDE";
+  description = "CierAutomata's NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
