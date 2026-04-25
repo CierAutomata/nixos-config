@@ -23,7 +23,14 @@ in
     brave
     vesktop
     spotify
-    
+    udiskie
+    xdg-utils
+    nautilus
+    kdePackages.dolphin
+    kdePackages.qtsvg
+    kdePackages.plasma-workspace
+    kdePackages.kio-fuse
+    kdePackages.kio-extras
   ];
 
   xdg.configFile = {

@@ -5,15 +5,11 @@
 
   # Systemweite Grundpakete für Desktop-Nutzung
   environment.systemPackages = with pkgs; [
-    greetd.tuigreet
-    yazi
-    #sops
-    #age
-    #age-plugin-yubikey
-    ssh-to-age
-    udiskie
-    xdg-utils
-    nautilus
+    #greetd.tuigreet
+    #yazi
+    #udiskie
+    #xdg-utils
+    #nautilus
   ] ++ config.myConfig.extraSystemPackages;
 
   fonts.packages = with pkgs; [
