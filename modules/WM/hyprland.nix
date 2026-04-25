@@ -37,4 +37,7 @@ lib.mkIf (config.myConfig.wm == "hyprland") {
       noctalia.default = [ "wlr" ];
     };
   };
+  environment.variables ={
+    QT_QPA_PLATFORMTHEME = "gtk3";
+  };
 }

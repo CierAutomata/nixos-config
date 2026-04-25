@@ -31,6 +31,13 @@ in
     kdePackages.plasma-workspace
     kdePackages.kio-fuse
     kdePackages.kio-extras
+    nwg-look
+    dracula-theme
+    kdePackages.breeze-gtk
+    kdePackages.breeze-icons
+    steam
+    remmina
+    freerdp
   ];
 
   xdg.configFile = {
