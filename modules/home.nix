@@ -17,6 +17,7 @@ in
     brave
     code
     yazi
+    claude-code
     nerd-fonts.jetbrains-mono
     pywalfox-native
     vscode
@@ -56,8 +57,8 @@ in
   };
   programs.git = {
     enable = true;
-    userName = "CierAutomata";
-    userEmail = "CierAutomata@pm.me";
+    settings.user.name = "CierAutomata";
+    settings.user.email = "CierAutomata@pm.me";
   };
 
   #programs.fish.enable = true;

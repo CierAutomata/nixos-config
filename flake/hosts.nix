@@ -12,7 +12,7 @@ let
     ../modules/nix-setup.nix
     ../modules/core.nix
     ../modules/tools.nix
-    #../modules/desktop.nix
+    ../modules/desktop.nix
     ../modules/laptop.nix
     ../modules/WM/hyprland.nix
     ../modules/WM/niri.nix

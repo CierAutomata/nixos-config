@@ -7,9 +7,15 @@
     fsType = "btrfs";
     options = [ "compress=zstd" ];
   };
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+    nvidiaSettings = true;
     open = true;
   };
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.bluetooth.enable = true;
+  hardware.graphics.enable32Bit = true;
 }

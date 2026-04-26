@@ -26,17 +26,19 @@ lib.mkIf (config.myConfig.wm == "hyprland") {
 
   xdg.portal = {
     enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-wlr
-      pkgs.xdg-desktop-portal-gtk
-    ];
-    config = {
-      common.default = [ "gtk" ];
-      hyprland.default = [ "hyprland" ];
-      noctalia.default = [ "wlr" ];
-    };
+    #extraPortals = [
+      #pkgs.xdg-desktop-portal-hyprland
+      #pkgs.xdg-desktop-portal-wlr
+      #pkgs.xdg-desktop-portal-gtk
+    #];
+    #config = {
+    #  common.default = [ "gtk" ];
+    #  hyprland.default = [ "hyprland" ];
+    #  noctalia.default = [ "wlr" ];
+    #};
   };
+  security.polkit.enable = true;
+
   environment.variables ={
     QT_QPA_PLATFORMTHEME = "gtk3";
   };

@@ -30,8 +30,14 @@
 
   #users.mutableUsers = false;
   system.stateVersion = "26.05";
-  hardware.bluetooth.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
   programs.java.enable = true; 
   programs.steam = {
     enable = true;
