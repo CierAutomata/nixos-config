@@ -6,6 +6,7 @@ let
     installPhase = ''
       mkdir -p $out/grub/themes/rose-pine
       cp -r . $out/grub/themes/rose-pine
+      sed -i 's/terminal-font: "Gnu Unifont Mono Regular 16"/terminal-font: "DejaVu Sans Bold 14"/' $out/grub/themes/rose-pine/theme.txt
     '';
   };
 in

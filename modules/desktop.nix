@@ -28,7 +28,9 @@
   xdg.mime = {
     enable = true;
     defaultApplications = {
-      "inode/directory" = [ "yazi.desktop" ];
+      "inode/directory" = [ "kitty-yazi.desktop" ];
+      "inode/mount-point" = [ "kitty-yazi.desktop" ];
+      "x-scheme-handler/file" = [ "kitty-yazi.desktop" ];
     };
   };
   services.upower.enable = true;

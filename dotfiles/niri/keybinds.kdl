@@ -1,6 +1,6 @@
 binds {
     // ── Apps ──────────────────────────────────────────────────────────────────────
-    Mod+Return { spawn "alacritty"; }
+    Mod+Return { spawn "kitty"; }
     Mod+B      { spawn "brave"; }
     Mod+Space  { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+E      { spawn "nautilus"; }

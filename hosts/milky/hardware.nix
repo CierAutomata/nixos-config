@@ -13,6 +13,8 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaSettings = true;
     open = true;
+    modesetting.enable = true;
+    powerManagement.enable = true;
   };
   services.xserver.videoDrivers = [ "nvidia" ];
 

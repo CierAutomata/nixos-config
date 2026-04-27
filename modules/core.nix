@@ -38,8 +38,8 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     SUDO_EDITOR = "nvim";
-    TERMINAL = "alacritty";
-    XDG_TERMINAL_EXEC = "alacritty";
+    TERMINAL = "kitty";
+    XDG_TERMINAL_EXEC = "kitty";
   };
 
   console.keyMap = config.myConfig.keyboard;

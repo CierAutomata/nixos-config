@@ -7,4 +7,5 @@ end
 
 set -gx PATH $PATH ~/.config/emacs/bin
 alias vim="nvim"
+alias ssh="TERM=xterm-256color command ssh"
 alias rebuild="sudo nixos-rebuild switch --impure --flake /home/cier/nixos-config"
