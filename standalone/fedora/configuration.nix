@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let dot = "/home/briest/nixos-config/dotfiles"; in
 {
@@ -19,6 +19,24 @@ let dot = "/home/briest/nixos-config/dotfiles"; in
     "hypr-host.conf".text = ''source = ${dot}/hypr/hosts/fedora.conf'';
     "niri-host.kdl".text  = ''include "${dot}/niri/hosts/fedora.kdl"'';
   };
+
+  home.packages = with pkgs; [
+    noctalia-shell
+    neovim
+    gh
+    alacritty
+    kitty
+    yazi
+    nerd-fonts.jetbrains-mono
+    rclone
+    cava
+    fastfetch
+    btop
+    cmatrix
+    sox
+    firefox
+    brave
+  ];
 
   home.file.".bashrc".source =
     config.lib.file.mkOutOfStoreSymlink (dot + "/.bashrc");

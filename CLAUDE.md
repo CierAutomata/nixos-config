@@ -40,7 +40,7 @@ The `myConfig.*` namespace drives conditional activation across modules:
 | `myConfig.userName` | string | User account; drives home-manager setup |
 | `myConfig.keyboard` | `"de" \| "us"` | Sets console.keyMap + xkb.layout in `core.nix` |
 | `myConfig.gaming` | bool | Enables Steam/Gamescope/Java via `gaming.nix` |
-| `myConfig.sddmTheme` | string | SDDM theme selection (flocke = "default", milky = "rei") |
+| `myConfig.sddmTheme` | string | SDDM theme selection (itnb-b2954j3 = "default", milky = "rei") |
 
 ### Module Roles
 
@@ -58,7 +58,7 @@ The `myConfig.*` namespace drives conditional activation across modules:
 
 ### Hosts
 
-- `flocke` — Laptop, `isLaptop=true`, `keyboard="us"`, `wm="hyprland"`
+- `itnb-b2954j3` — Laptop, `isLaptop=true`, `keyboard="us"`, `wm="hyprland"`
 - `milky` — Desktop, `gaming=true`, `keyboard="de"`, NVIDIA (`modesetting` + `powerManagement` enabled)
 - `template` — Kopiervorlage für neue Hosts; alle Optionen vorhanden, optionale auskommentiert
 

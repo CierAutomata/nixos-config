@@ -11,18 +11,20 @@
   myConfig = {
     wm = "hyprland";
     isLaptop = true;
-    userName = "cier";
+    userName = "briest";
     sddmTheme = "default";
     keyboard = "us";
-    # configDir = "/home/cier/nixos-config"; # Standard, nur ändern wenn Repo woanders liegt
+    # configDir = "/home/briest/nixos-config"; # Standard, nur ändern wenn Repo woanders liegt
   };
 
   networking.hostName = "itnb-b2954j3";
 
-  users.users.cier = {
+  virtualisation.docker.enable = true;
+
+  users.users.briest = {
     isNormalUser = true;
-    description = "CierAutomata";
-    extraGroups = [ "wheel" "networkmanager" "disk" "storage" ];
+    description = "briest";
+    extraGroups = [ "wheel" "networkmanager" "disk" "storage" "docker" ];
     #hashedPasswordFile = config.sops.secrets.user-password.path;
   };
 

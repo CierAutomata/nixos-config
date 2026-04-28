@@ -26,7 +26,7 @@
 
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ ./flake/hosts.nix ];
+      imports = [ ./flake/hosts.nix ./flake/standalone.nix ];
       systems = [ "x86_64-linux" "aarch64-linux" ];
     };
 }

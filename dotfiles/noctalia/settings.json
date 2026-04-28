@@ -692,7 +692,7 @@
     },
     "wallpaper": {
         "automationEnabled": true,
-        "directory": "/home/cier/Pictures/Wallpapers",
+        "directory": "/home/briest/Pictures/Wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
@@ -702,10 +702,10 @@
                 "darkMode": true,
                 "generationMethod": "tonal-spot",
                 "paletteColors": [
-                    "#ffb1c4",
-                    "#e3bdc5",
-                    "#edbd92",
-                    "#ffb4ab"
+                    "#546500",
+                    "#5c6146",
+                    "#3a665d",
+                    "#ba1a1a"
                 ],
                 "path": "/home/briest/Pictures/Wallpapers/moon.jpg",
                 "useWallpaperColors": true
@@ -721,13 +721,13 @@
         "overviewEnabled": false,
         "overviewTint": 0.6,
         "panelPosition": "follow_bar",
-        "randomIntervalSec": 600,
+        "randomIntervalSec": 300,
         "setWallpaperOnAllMonitors": true,
         "showHiddenFiles": false,
-        "skipStartupTransition": false,
+        "skipStartupTransition": true,
         "solidColor": "#1a1a2e",
-        "sortOrder": "name",
-        "transitionDuration": 1500,
+        "sortOrder": "date_asc",
+        "transitionDuration": 500,
         "transitionEdgeSmoothness": 0.05,
         "transitionType": [
             "honeycomb"
