@@ -17,7 +17,7 @@
     # configDir = "/home/cier/nixos-config"; # Standard, nur ändern wenn Repo woanders liegt
   };
 
-  networking.hostName = "flocke";
+  networking.hostName = "itnb-b2954j3";
 
   users.users.cier = {
     isNormalUser = true;
