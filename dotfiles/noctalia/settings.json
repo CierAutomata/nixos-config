@@ -702,10 +702,10 @@
                 "darkMode": true,
                 "generationMethod": "tonal-spot",
                 "paletteColors": [
-                    "#546500",
-                    "#5c6146",
-                    "#3a665d",
-                    "#ba1a1a"
+                    "#c3c0ff",
+                    "#c7c4dd",
+                    "#eab9d2",
+                    "#ffb4ab"
                 ],
                 "path": "/home/briest/Pictures/Wallpapers/moon.jpg",
                 "useWallpaperColors": true
