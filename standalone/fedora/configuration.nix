@@ -24,6 +24,16 @@ let dot = "/home/briest/nixos-config/dotfiles"; in
     yazi
   ];
 
+  xdg.desktopEntries.kitty-yazi = {
+    name = "Yazi (Kitty)";
+    exec = "kitty -- yazi %f";
+    icon = "yazi";
+    type = "Application";
+    mimeType = [ "inode/directory" "inode/mount-point" "x-scheme-handler/file" ];
+    categories = [ "FileManager" "System" ];
+    noDisplay = true;
+  };
+
   home.file.".bashrc".source =
     config.lib.file.mkOutOfStoreSymlink (dot + "/.bashrc");
 
