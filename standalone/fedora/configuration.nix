@@ -21,21 +21,7 @@ let dot = "/home/briest/nixos-config/dotfiles"; in
   };
 
   home.packages = with pkgs; [
-    noctalia-shell
-    neovim
-    gh
-    alacritty
-    kitty
     yazi
-    nerd-fonts.jetbrains-mono
-    rclone
-    cava
-    fastfetch
-    btop
-    cmatrix
-    sox
-    firefox
-    brave
   ];
 
   home.file.".bashrc".source =
