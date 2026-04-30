@@ -78,18 +78,11 @@ sudo dnf install -y brave-browser
 # --- SELinux deaktivieren ---
 sudo sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
-# --- Env-Vars für Wayland/Hyprland in VM (muss vor Hyprland gesetzt sein) ---
-# WLR_RENDERER_ALLOW_SOFTWARE: Fallback auf Software-Rendering falls kein Vulkan
-# WLR_RENDERER=gles2: GLES2 statt Vulkan (funktioniert in QEMU-VMs zuverlässig)
-sudo tee -a /etc/environment <<'EOF'
-WLR_RENDERER_ALLOW_SOFTWARE=1
-WLR_RENDERER=gles2
-XDG_SESSION_TYPE=wayland
-EOF
-
-# --- SDDM aktivieren (Wayland-Modus für Hyprland) ---
+# --- SDDM aktivieren + hyprland-uwsm.desktop als Default-Session ---
+# hyprland-uwsm.desktop ruft uwsm start direkt auf; hyprland.desktop (nur Exec=Hyprland)
+# funktioniert nicht, weil pam_uwsm.so nicht in SDDM-PAM ist und libseat-logind scheitert.
 sudo mkdir -p /etc/sddm.conf.d
-printf '[General]\nDisplayServer=wayland\n\n[Users]\nMinimumUid=1000\nMaximumUid=29999\n' | sudo tee /etc/sddm.conf.d/10-display-server.conf
+printf '[General]\nDisplayServer=x11\nSession=hyprland-uwsm.desktop\n\n[Users]\nMinimumUid=1000\nMaximumUid=29999\n' | sudo tee /etc/sddm.conf.d/10-display-server.conf
 # GDM deaktivieren falls vorhanden (blockiert sonst SDDM)
 sudo systemctl disable gdm 2>/dev/null || true
 sudo systemctl enable sddm
