@@ -60,9 +60,15 @@ The `myConfig.*` namespace drives conditional activation across modules:
 
 ### Hosts
 
-- `itnb-b2954j3` — Laptop, `isLaptop=true`, `keyboard="us"`, `wm="hyprland"`
-- `milky` — Desktop, `gaming=true`, `keyboard="de"`, `wm="niri"`, NVIDIA (`modesetting` + `powerManagement` enabled); libvirtd aktiviert mit QEMU/OVMF/virt-manager/looking-glass-client; OVMF unter stabilen Pfaden `/etc/ovmf/`
+- `itnb-b2954j3` — Laptop, `isLaptop=true`, `keyboard="us"`, `wm="hyprland"`, `userName="briest"`; libvirtd + QEMU/OVMF/virt-manager/looking-glass-client; OVMF unter stabilen Pfaden `/etc/ovmf/`
+- `milky` — Desktop, `gaming=true`, `keyboard="de"`, `wm="niri"`, `userName="cier"`, NVIDIA (`modesetting` + `powerManagement` enabled); libvirtd aktiviert mit QEMU/OVMF/virt-manager/looking-glass-client; OVMF unter stabilen Pfaden `/etc/ovmf/`
 - `template` — Kopiervorlage für neue Hosts; alle Optionen vorhanden, optionale auskommentiert
+
+### Custom Packages
+
+`packages/` enthält selbst gepflegte Nix-Derivationen:
+
+- `packages/vm-curator/` — TUI-VM-Manager; fetcht von `github:mroboff/vm-curator` und wendet `nixos-fixes.patch` an (PipeWire-Audio, chmod OVMF_VARS, NixOS-Pfade). Update mit `./packages/vm-curator/update.sh [version]`.
 
 ### Deprecated
 
