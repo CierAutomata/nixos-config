@@ -45,8 +45,8 @@ The `myConfig.*` namespace drives conditional activation across modules:
 ### Module Roles
 
 - `modules/options.nix` — declares all `myConfig` options
-- `modules/core.nix` — networking, locale, shells, Pipewire+rtkit, keyboard layout, pcscd (YubiKey)
-- `modules/home.nix` — user packages + dotfile symlinks via `mkOutOfStoreSymlink`; rclone bisync systemd timer
+- `modules/core.nix` — networking, locale, shells, Pipewire+rtkit, keyboard layout, pcscd (YubiKey); sets `QEMU_AUDIO_DRV=pipewire`
+- `modules/home.nix` — user packages (inkl. rustc/cargo) + dotfile symlinks via `mkOutOfStoreSymlink`; rclone bisync systemd timer
 - `modules/desktop.nix` — UWSM, fonts, MIME, udisks2, polkit-gnome agent
 - `modules/laptop.nix` — power-profiles-daemon (replaces TLP), 80% charge limit via udev, brightness, lid-switch
 - `modules/gaming.nix` — Steam, Gamescope, Java (only when `myConfig.gaming = true`)
@@ -54,17 +54,25 @@ The `myConfig.*` namespace drives conditional activation across modules:
 - `modules/nix-setup.nix` — nix settings (substituters, gc, etc.)
 - `modules/tools.nix` — common CLI tools
 - `modules/home-manager-setup.nix` — home-manager integration
+- `modules/silent-sddm.nix` — SDDM via `silentSDDM` flake input; theme via `myConfig.sddmTheme`
+- `modules/sops.nix` — sops-nix mit age+YubiKey; verwaltet `user-password` und `root-password` aus `secrets/secrets.yaml`
 - `modules/wm/hyprland.nix` / `niri.nix` — compositor, portals, polkit
 
 ### Hosts
 
 - `itnb-b2954j3` — Laptop, `isLaptop=true`, `keyboard="us"`, `wm="hyprland"`
-- `milky` — Desktop, `gaming=true`, `keyboard="de"`, NVIDIA (`modesetting` + `powerManagement` enabled)
+- `milky` — Desktop, `gaming=true`, `keyboard="de"`, `wm="niri"`, NVIDIA (`modesetting` + `powerManagement` enabled); libvirtd aktiviert mit QEMU/OVMF/virt-manager/looking-glass-client; OVMF unter stabilen Pfaden `/etc/ovmf/`
 - `template` — Kopiervorlage für neue Hosts; alle Optionen vorhanden, optionale auskommentiert
 
 ### Deprecated
 
 - `bootstrap.sh` — nicht mehr relevant, wird bald gelöscht oder komplett neu geschrieben. Nicht verwenden.
+
+### Standalone (Nicht-NixOS)
+
+`standalone/` enthält home-manager-Konfigurationen für Nicht-NixOS-Systeme.
+
+- `standalone/fedora/` — home-manager für Fedora, User `briest`; dotfile-Symlinks (alacritty, fish, hypr, kitty, niri, nvim …), yazi, kitty-yazi Desktop-Eintrag, git-Konfiguration
 
 ### Dotfiles
 
