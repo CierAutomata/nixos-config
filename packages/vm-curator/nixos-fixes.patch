@@ -1,0 +1,62 @@
+diff --git a/src/vm/create.rs b/src/vm/create.rs
+index 270bee2..36d5bb6 100644
+--- a/src/vm/create.rs
++++ b/src/vm/create.rs
+@@ -113,6 +113,7 @@ const OVMF_SEARCH_PATHS: &[&str] = &[
+     "/usr/share/qemu/ovmf-x86_64-code.bin",
+     // NixOS
+     "/run/libvirt/nix-ovmf/OVMF_CODE.fd",
++    "/etc/ovmf/OVMF_CODE.fd",
+     // Generic/fallback paths
+     "/usr/share/ovmf/OVMF_CODE.fd",
+     "/usr/share/qemu/OVMF_CODE.fd",
+@@ -492,6 +493,7 @@ if [[ ! -f "$OVMF_VARS" ]]; then
+     if [[ -f "$OVMF_VARS_TEMPLATE" ]]; then
+         echo "Creating UEFI variables file..."
+         cp "$OVMF_VARS_TEMPLATE" "$OVMF_VARS"
++        chmod 600 "$OVMF_VARS"
+     else
+         echo "Warning: OVMF_VARS template not found at $OVMF_VARS_TEMPLATE"
+         echo "UEFI variables may not persist across reboots"
+@@ -516,6 +518,8 @@ fn find_ovmf_vars_template() -> Option<String> {
+         "/usr/share/OVMF/OVMF_VARS_4M.fd",
+         // Fedora/RHEL
+         "/usr/share/edk2/ovmf/OVMF_VARS.fd",
++        // NixOS
++        "/etc/ovmf/OVMF_VARS.fd",
+         // Generic
+         "/usr/share/ovmf/OVMF_VARS.fd",
+         "/usr/share/qemu/OVMF_VARS.fd",
+@@ -969,7 +973,7 @@ fn build_qemu_command_with_os(
+         if config.display == "spice-app" {
+             args.push("-audiodev spice,id=audio0".to_string());
+         } else {
+-            args.push("-audiodev pa,id=audio0".to_string());
++            args.push("-audiodev pipewire,id=audio0".to_string());
+         }
+     }
+ 
+diff --git a/src/vm/tests/create.rs b/src/vm/tests/create.rs
+index 6300ed3..34ed789 100644
+--- a/src/vm/tests/create.rs
++++ b/src/vm/tests/create.rs
+@@ -143,7 +143,7 @@ fn test_build_qemu_command_with_audio() {
+ 
+     let cmd = build_qemu_command_with_os(&config, "disk.qcow2", &InstallMedia::None, None, None);
+ 
+-    assert!(cmd.contains("-audiodev pa,id=audio0"));
++    assert!(cmd.contains("-audiodev pipewire,id=audio0"));
+     assert!(cmd.contains("-device intel-hda"));
+     assert!(cmd.contains("-device hda-duplex,audiodev=audio0"));
+ }
+@@ -426,8 +426,8 @@ fn test_non_macos_unchanged() {
+     assert!(!cmd.contains("-smbios type=2"), "Linux VM should NOT have SMBIOS type=2");
+     assert!(!cmd.contains("usb-kbd"), "Linux VM should NOT have USB keyboard");
+     assert!(!cmd.contains("ich9-ahci"), "Linux VM should NOT have explicit AHCI controller");
+-    // Default config includes audio, so pa backend should be used (not spice)
+-    assert!(cmd.contains("-audiodev pa,id=audio0"), "Linux VM should use pa audio backend");
++    // Default config includes audio, so pipewire backend should be used (not spice)
++    assert!(cmd.contains("-audiodev pipewire,id=audio0"), "Linux VM should use pipewire audio backend");
+     assert!(!cmd.contains("-audiodev spice"), "Linux VM should NOT use spice audio backend");
+ }
+ 

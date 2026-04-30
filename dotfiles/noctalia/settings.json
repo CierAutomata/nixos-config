@@ -354,7 +354,7 @@
         "animationDisabled": false,
         "animationSpeed": 1,
         "autoStartAuth": false,
-        "avatarImage": "/home/briest/.face",
+        "avatarImage": "~/.face",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
         "clockStyle": "custom",
@@ -696,7 +696,7 @@
     },
     "wallpaper": {
         "automationEnabled": true,
-        "directory": "/home/cier/Pictures/Wallpapers",
+        "directory": "~/Pictures/Wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
@@ -711,7 +711,21 @@
                     "#eab9d2",
                     "#ffb4ab"
                 ],
-                "path": "/home/briest/Pictures/Wallpapers/moon.jpg",
+                "path": "~/Pictures/Wallpapers/moon.jpg",
+                "useWallpaperColors": true
+            },
+            {
+                "appearance": "dark",
+                "colorScheme": "Rose Pine",
+                "darkMode": true,
+                "generationMethod": "tonal-spot",
+                "paletteColors": [
+                    "#ffb3b5",
+                    "#e6bdbd",
+                    "#e6c18d",
+                    "#ffb4ab"
+                ],
+                "path": "~/Pictures/Wallpapers/su-san-lee-E_eWwM29wfU-unsplash_mirror.jpg",
                 "useWallpaperColors": true
             }
         ],

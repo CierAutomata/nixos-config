@@ -1,93 +1,48 @@
 [colors.primary]
-<<<<<<< HEAD
-background = '#141316'
-foreground = '#e6e1e6'
+background = '#181212'
+foreground = '#ece0df'
  
 [colors.cursor]
-text = '#e6e1e6'
-cursor = '#cac4cf' 
+text = '#ece0df'
+cursor = '#d7c1c1' 
  
 [colors.vi_mode_cursor]
-text = '#141316'
-cursor = '#cfbdff' 
+text = '#181212'
+cursor = '#ffb3b5' 
  
 [colors.search.matches]
-foreground = '#49454e' 
-background = '#efb8c8' 
+foreground = '#524343' 
+background = '#e6c18d' 
  
 [colors.search.focused_match]
-foreground = '#49454e' 
-background = '#cfbdff' 
+foreground = '#524343' 
+background = '#ffb3b5' 
  
 [colors.footer_bar]
-foreground = '#49454e' 
-background = '#e6e1e6' 
+foreground = '#524343' 
+background = '#ece0df' 
  
 [colors.hints.start]
-foreground = '#49454e' 
-background = '#cbc3dc' 
+foreground = '#524343' 
+background = '#e6bdbd' 
  
 [colors.hints.end]
-foreground = '#49454e' 
-background = '#cbc3dc' 
+foreground = '#524343' 
+background = '#e6bdbd' 
  
 [colors.selection]
-text = '#141316'
-background = '#cfbdff'
-=======
-background = '#171213'
-foreground = '#ece0e1'
- 
-[colors.cursor]
-text = '#ece0e1'
-cursor = '#d6c2c5' 
- 
-[colors.vi_mode_cursor]
-text = '#171213'
-cursor = '#ffb1c4' 
- 
-[colors.search.matches]
-foreground = '#514346' 
-background = '#edbd92' 
- 
-[colors.search.focused_match]
-foreground = '#514346' 
-background = '#ffb1c4' 
- 
-[colors.footer_bar]
-foreground = '#514346' 
-background = '#ece0e1' 
- 
-[colors.hints.start]
-foreground = '#514346' 
-background = '#e3bdc5' 
- 
-[colors.hints.end]
-foreground = '#514346' 
-background = '#e3bdc5' 
- 
-[colors.selection]
-text = '#171213'
-background = '#ffb1c4'
->>>>>>> a0c63df (ganz viel bastelei)
+text = '#181212'
+background = '#ffb3b5'
  
  
 [colors.normal]
 black = '#181818' 
 red = '#ffb4ab' 
-<<<<<<< HEAD
-green = '#cfbdff' 
-yellow = '#6650a4' 
-blue = '#cfbdff' 
-magenta = '#efb8c8' 
-cyan = '#cbc3dc' 
-=======
-green = '#ffb1c4' 
-yellow = '#99405c' 
-blue = '#ffb1c4' 
-magenta = '#edbd92' 
-cyan = '#e3bdc5' 
->>>>>>> a0c63df (ganz viel bastelei)
+green = '#ffb3b5' 
+yellow = '#9c4048' 
+blue = '#ffb3b5' 
+magenta = '#e6c18d' 
+cyan = '#e6bdbd' 
 white = '#BAC2DE' 
  
  

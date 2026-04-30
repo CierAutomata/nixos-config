@@ -1,7 +1,8 @@
-{ pkgs, config, osConfig, ... }:
+{ pkgs, config, osConfig, inputs, ... }:
 
 let
   dot = osConfig.myConfig.configDir + "/dotfiles";
+  vm-curator = pkgs.callPackage ../packages/vm-curator/default.nix {};
 in
 {
   home.stateVersion = "26.05";
@@ -9,6 +10,7 @@ in
   home.homeDirectory = "/home/${osConfig.myConfig.userName}";
 
   home.packages = with pkgs; [
+    vm-curator
     neovim
     gh
     alacritty

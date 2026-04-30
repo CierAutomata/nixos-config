@@ -20,7 +20,7 @@
 
   networking.hostName = "milky";
 
-  users.users.cier = {
+  users.users.${config.myConfig.userName} = {
     isNormalUser = true;
     description = "CierAutomata";
     extraGroups = [ "wheel" "networkmanager" "disk" "storage" "libvirtd" ];

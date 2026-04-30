@@ -1,50 +1,25 @@
 {
-<<<<<<< HEAD
-  "mPrimary": "#cfbdff",
-  "mOnPrimary": "#371e73",
+  "mPrimary": "#ffb3b5",
+  "mOnPrimary": "#5f121d",
 
-  "mSecondary": "#cbc3dc",
-  "mOnSecondary": "#332d41",
+  "mSecondary": "#e6bdbd",
+  "mOnSecondary": "#44292a",
 
-  "mTertiary": "#efb8c8",
-  "mOnTertiary": "#492532",
-=======
-  "mPrimary": "#ffb1c4",
-  "mOnPrimary": "#5e112e",
-
-  "mSecondary": "#e3bdc5",
-  "mOnSecondary": "#422930",
-
-  "mTertiary": "#edbd92",
-  "mOnTertiary": "#472a0a",
->>>>>>> a0c63df (ganz viel bastelei)
+  "mTertiary": "#e6c18d",
+  "mOnTertiary": "#422c05",
 
   "mError": "#ffb4ab",
   "mOnError": "#690005",
 
-<<<<<<< HEAD
-  "mSurface": "#141316",
-  "mOnSurface": "#e6e1e6",
+  "mSurface": "#181212",
+  "mOnSurface": "#ece0df",
 
-  "mSurfaceVariant": "#201f22",
-  "mOnSurfaceVariant": "#cac4cf",
+  "mSurfaceVariant": "#241e1e",
+  "mOnSurfaceVariant": "#d7c1c1",
   
-  "mOutline": "#49454e",
+  "mOutline": "#524343",
   "mShadow": "#000000",
 
-  "mHover": "#efb8c8",
-  "mOnHover": "#492532"
-=======
-  "mSurface": "#171213",
-  "mOnSurface": "#ece0e1",
-
-  "mSurfaceVariant": "#241e1f",
-  "mOnSurfaceVariant": "#d6c2c5",
-  
-  "mOutline": "#514346",
-  "mShadow": "#000000",
-
-  "mHover": "#edbd92",
-  "mOnHover": "#472a0a"
->>>>>>> a0c63df (ganz viel bastelei)
+  "mHover": "#e6c18d",
+  "mOnHover": "#422c05"
 } 
