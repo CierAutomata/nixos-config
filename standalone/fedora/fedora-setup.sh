@@ -81,7 +81,9 @@ sudo sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 # --- SDDM aktivieren + auf Xorg setzen ---
 sudo mkdir -p /etc/sddm.conf.d
 printf '[General]\nDisplayServer=x11\n\n[Users]\nMinimumUid=1000\nMaximumUid=29999\n' | sudo tee /etc/sddm.conf.d/10-display-server.conf
+sudo systemctl disable gdm 2>/dev/null || true
 sudo systemctl enable sddm
+sudo systemctl set-default graphical.target
 
 # --- Nix installieren (Determinate Systems) ---
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
