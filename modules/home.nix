@@ -32,6 +32,8 @@ in
     perlPackages.FileMimeInfo
     lua51Packages.luarocks-nix
     lua51Packages.lua
+    lua51Packages.lua-lsp
+    lua-language-server
     rclone
     nautilus
     kdePackages.dolphin
@@ -56,17 +58,30 @@ in
     rustc
     cargo
     wofi
+    ripgrep
+    nixfmt
+    nil
+    hyprls
   ];
+  
+  home.pointerCursor.gtk.enable = true;
+  home.pointerCursor.x11.enable = true;
+  home.pointerCursor.package = pkgs.bibata-cursors;
+  home.pointerCursor.name = "Bibata-Modern-Classic";
+  home.pointerCursor.size = 16;
+  
+  
+xdg.configFile = {
 
-  xdg.configFile."hypr-host.conf".text = ''
+  "hypr-host.conf".text = ''
     source = ${dot}/hypr/hosts/${osConfig.networking.hostName}.conf
   '';
 
-  xdg.configFile."niri-host.kdl".text = ''
+  "niri-host.kdl".text = ''
     include "${dot}/niri/hosts/${osConfig.networking.hostName}.kdl"
   '';
 
-  xdg.configFile = {
+  
     "hypr".source = config.lib.file.mkOutOfStoreSymlink (dot + "/hypr/");
     "niri".source = config.lib.file.mkOutOfStoreSymlink (dot + "/niri/");
     "nvim".source = config.lib.file.mkOutOfStoreSymlink (dot + "/nvim/");
@@ -75,11 +90,12 @@ in
     "fastfetch".source = config.lib.file.mkOutOfStoreSymlink (dot + "/fastfetch/");
     "fish".source = config.lib.file.mkOutOfStoreSymlink (dot + "/fish/");
     "kitty".source = config.lib.file.mkOutOfStoreSymlink (dot + "/kitty/");
-  };
+  
+};
 
-  home.file = {
-    ".bashrc".source = config.lib.file.mkOutOfStoreSymlink (dot + "/.bashrc");
-  };
+  
+    home.file.".bashrc".source = config.lib.file.mkOutOfStoreSymlink (dot + "/.bashrc");
+  
   # Override Steam's desktop entry to neutralize the global GDK scaling vars
   # (GDK_SCALE=2/GDK_DPI_SCALE=0.75 are tuned for DP-3 at 1.5x; Steam runs on HDMI-A-4 at 1.0x)
   xdg.desktopEntries.kitty-yazi = {
@@ -132,12 +148,5 @@ in
   };
 
   #programs.fish.enable = true;
-  
-  home.pointerCursor = {
-  gtk.enable = true;
-  x11.enable = true;
-  package = pkgs.bibata-cursors;
-  name = "Bibata-Modern-Classic";
-  size = 16;
-  };
 }
+

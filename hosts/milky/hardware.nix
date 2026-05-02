@@ -17,7 +17,6 @@
     powerManagement.enable = true;
   };
   services.xserver.videoDrivers = [ "nvidia" ];
-
-  hardware.bluetooth.enable = true;
   hardware.graphics.enable32Bit = true;
+  hardware.bluetooth.enable = true;
 }

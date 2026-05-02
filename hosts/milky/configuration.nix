@@ -32,7 +32,6 @@
   #};
   
   environment.systemPackages = with pkgs; [
-
     qemu
     OVMF
     virt-viewer
@@ -40,7 +39,6 @@
     looking-glass-client
     virt-manager
   ];
-
   # OVMF an stabilen Pfaden bereitstellen (NixOS-Store-Pfad wechselt bei Updates)
   environment.etc = {
     "ovmf/OVMF_CODE.fd".source = "${pkgs.OVMF.fd}/FV/OVMF_CODE.fd";

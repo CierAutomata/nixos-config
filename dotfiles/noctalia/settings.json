@@ -727,6 +727,20 @@
                 ],
                 "path": "~/Pictures/Wallpapers/su-san-lee-E_eWwM29wfU-unsplash_mirror.jpg",
                 "useWallpaperColors": true
+            },
+            {
+                "appearance": "dark",
+                "colorScheme": "Rose Pine",
+                "darkMode": true,
+                "generationMethod": "tonal-spot",
+                "paletteColors": [
+                    "#c6bfff",
+                    "#c8c3dc",
+                    "#ebb8cf",
+                    "#ffb4ab"
+                ],
+                "path": "/home/cier/Pictures/Wallpapers/iNiR-Walls/wallhaven-powqje.jpg",
+                "useWallpaperColors": true
             }
         ],
         "fillColor": "#000000",
