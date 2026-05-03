@@ -4,9 +4,9 @@ binds {
     Mod+Return { spawn "kitty"; }
     Mod+B      { spawn "brave"; }
     Mod+C      { spawn "code";  }
-    //Mod+Space  { spawn ""noctalia-shell" "ipc" "call" "launcher" "toggle"; "}
-    Mod+Space  { spawn "wofi";}
-    Mod+E      { spawn "nautilus";}
+    Mod+Space  { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";}
+    //Mod+Space  { spawn "wofi";}
+    Mod+E      { spawn "kitty" "-e" "yazi";}
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle";}
 
@@ -22,8 +22,8 @@ binds {
     // ── Fokus ─────────────────────────────────────────────────────────────────────
     Mod+Left  { focus-column-left; }
     Mod+Right { focus-column-right; }
-    Mod+Up    { focus-window-up; }
-    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-workspace-up; }
+    Mod+Down  { focus-workspace-down; }
     Mod+H     { focus-column-left; }
     Mod+L     { focus-column-right; }
     Mod+K     { focus-window-up; }

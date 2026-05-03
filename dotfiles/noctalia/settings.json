@@ -676,6 +676,10 @@
             {
                 "enabled": true,
                 "id": "niri"
+            },
+            {
+                "enabled": true,
+                "id": "fuzzel"
             }
         ],
         "enableUserTheming": true
@@ -720,9 +724,9 @@
                 "darkMode": true,
                 "generationMethod": "tonal-spot",
                 "paletteColors": [
-                    "#ffb3b5",
-                    "#e6bdbd",
-                    "#e6c18d",
+                    "#feb3b5",
+                    "#e5bdbd",
+                    "#e6c08d",
                     "#ffb4ab"
                 ],
                 "path": "~/Pictures/Wallpapers/su-san-lee-E_eWwM29wfU-unsplash_mirror.jpg",
@@ -734,12 +738,40 @@
                 "darkMode": true,
                 "generationMethod": "tonal-spot",
                 "paletteColors": [
-                    "#c6bfff",
-                    "#c8c3dc",
-                    "#ebb8cf",
+                    "#54dbc8",
+                    "#b1ccc6",
+                    "#adcae5",
                     "#ffb4ab"
                 ],
-                "path": "/home/cier/Pictures/Wallpapers/iNiR-Walls/wallhaven-powqje.jpg",
+                "path": "/home/cier/Pictures/Wallpapers/iNiR-Walls/137155645_p0.jpg",
+                "useWallpaperColors": true
+            },
+            {
+                "appearance": "dark",
+                "colorScheme": "Rose Pine",
+                "darkMode": true,
+                "generationMethod": "tonal-spot",
+                "paletteColors": [
+                    "#b8c4ff",
+                    "#c2c5dd",
+                    "#e4bad9",
+                    "#ffb4ab"
+                ],
+                "path": "/home/cier/Pictures/Wallpapers/iNiR-Walls/wallpaper810.png",
+                "useWallpaperColors": true
+            },
+            {
+                "appearance": "dark",
+                "colorScheme": "Rose Pine",
+                "darkMode": true,
+                "generationMethod": "tonal-spot",
+                "paletteColors": [
+                    "#9ecaff",
+                    "#bbc7db",
+                    "#d6bee4",
+                    "#ffb4ab"
+                ],
+                "path": "/home/cier/Pictures/Wallpapers/iNiR-Walls/wallhaven-1qdz21.png",
                 "useWallpaperColors": true
             }
         ],
@@ -749,8 +781,8 @@
         "linkLightAndDarkWallpapers": true,
         "monitorDirectories": [
         ],
-        "overviewBlur": 0.4,
-        "overviewEnabled": false,
+        "overviewBlur": 0.48,
+        "overviewEnabled": true,
         "overviewTint": 0.6,
         "panelPosition": "follow_bar",
         "randomIntervalSec": 300,

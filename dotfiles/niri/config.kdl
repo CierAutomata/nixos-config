@@ -8,6 +8,11 @@ include "~/.config/niri-host.kdl"
 include "./input.kdl"
 include "./windowrules.kdl"
 
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}
+
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
     skip-at-startup

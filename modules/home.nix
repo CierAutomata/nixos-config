@@ -62,6 +62,8 @@ in
     nixfmt
     nil
     hyprls
+    fuzzel
+    starship
   ];
   
   home.pointerCursor.gtk.enable = true;
@@ -90,7 +92,8 @@ xdg.configFile = {
     "fastfetch".source = config.lib.file.mkOutOfStoreSymlink (dot + "/fastfetch/");
     "fish".source = config.lib.file.mkOutOfStoreSymlink (dot + "/fish/");
     "kitty".source = config.lib.file.mkOutOfStoreSymlink (dot + "/kitty/");
-  
+    "fuzzel".source = config.lib.file.mkOutOfStoreSymlink (dot + "/fuzzel/");
+    "starship.toml".source = config.lib.file.mkOutOfStoreSymlink (dot + "/starship.toml");
 };
 
   

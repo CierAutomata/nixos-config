@@ -19,7 +19,7 @@ lib.mkIf (config.myConfig.wm == "niri") {
     wayland.enable = false;
   };
   services.xserver.enable = true;
-
+  
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
@@ -35,23 +35,23 @@ lib.mkIf (config.myConfig.wm == "niri") {
     xwayland-satellite
   ];
 
-  systemd.user.services.xwayland-satellite = {
-    description = "Xwayland Satellite";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite :0";
-      ExecStartPost = "${pkgs.systemd}/bin/systemctl --user set-environment DISPLAY=:0";
-      Restart = "on-failure";
-    };
-  };
+  #systemd.user.services.xwayland-satellite = {
+  #  description = "Xwayland Satellite";
+  #  wantedBy = [ "graphical-session.target" ];
+  #  partOf = [ "graphical-session.target" ];
+  #  #serviceConfig = {
+  #  #  ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite :0";
+  #  #  ExecStartPost = "${pkgs.systemd}/bin/systemctl --user set-environment DISPLAY=:0";
+  #  #  Restart = "on-failure";
+  #  #};
+  #};
 
   xdg.portal = {
     enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gnome  # Screensharing / Screencasting
-      pkgs.xdg-desktop-portal-gtk    # Dateidialoge / Fallback
-    ];
-    config.common.default = [ "gnome" "gtk" ];
+    #extraPortals = [
+    #  pkgs.xdg-desktop-portal-gnome  # Screensharing / Screencasting
+    #  pkgs.xdg-desktop-portal-gtk    # Dateidialoge / Fallback
+    #];
+    #config.common.default = [ "gnome" "gtk" ];
   };
 }

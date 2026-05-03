@@ -1,6 +1,7 @@
 layout {
-    gaps 9
-        center-focused-column "never"
+    gaps 12
+    center-focused-column "never"
+    background-color "transparent"
     preset-column-widths {
         proportion 0.33333
         proportion 0.5
@@ -22,4 +23,5 @@ layout {
         spread   3
         offset x=0 y=4
     }
+    always-center-single-column
 }
