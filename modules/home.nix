@@ -3,6 +3,7 @@
 let
   dot = osConfig.myConfig.configDir + "/dotfiles";
   vm-curator = pkgs.callPackage ../packages/vm-curator/default.nix {};
+  zen-browser = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   home.stateVersion = "26.05";
@@ -64,6 +65,8 @@ in
     hyprls
     fuzzel
     starship
+    zen-browser
+    spotatui
   ];
   
   home.pointerCursor.gtk.enable = true;
