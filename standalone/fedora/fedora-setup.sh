@@ -5,7 +5,6 @@
 set -e
 trap 'log_err "Fehlgeschlagen in ${FUNCNAME[0]:-main}, Zeile $LINENO (Exit-Code $?)"' ERR
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Colors
 RED='\033[0;31m'
@@ -20,39 +19,6 @@ log_warn() { echo -e "${YELLOW}[WARN]${NC}  $*"; }
 log_err()  { echo -e "${RED}[ERROR]${NC} $*"; }
 
 # ─────────────────────────────────────────────────────────────────────────────
-
-preflight_checks() {
-    log_info "Running preflight checks..."
-
-    if [[ "$(id -u)" -eq 0 ]]; then
-        log_err "Do not run this script as root. Run as a regular user with sudo access."
-        exit 1
-    fi
-
-    if ! sudo -n true 2>/dev/null; then
-        log_warn "This script requires sudo privileges. You will be prompted for your password."
-    fi
-
-    if [[ -f /etc/os-release ]]; then
-        . /etc/os-release
-        if [[ "${ID:-}" != "fedora" ]]; then
-            log_err "This script is designed for Fedora. Detected: ${ID:-unknown}"
-            exit 1
-        fi
-        log_ok "Detected Fedora ${VERSION_ID:-unknown}"
-    else
-        log_err "Cannot detect operating system."
-        exit 1
-    fi
-
-    if [[ ! -d "${SCRIPT_DIR}/.config" ]]; then
-        log_err "Expected ${SCRIPT_DIR}/.config/ not found."
-        log_err "Dotfiles must use the layout: ~/dotfiles/.config/<app>/"
-        exit 1
-    fi
-
-    log_ok "Preflight checks passed."
-}
 
 configure_dnf() {
     log_info "Configuring DNF..."
@@ -248,7 +214,6 @@ set_default_shell() {
 # Ausführung – einzelne Schritte auskommentieren zum Testen
 # ─────────────────────────────────────────────────────────────────────────────
 
-preflight_checks
 configure_dnf
 set_locale
 update_system
