@@ -138,18 +138,16 @@ install_packages() {
         playerctl \
         pavucontrol \
         blueman \
-        starship \
         luarocks \
         adw-gtk3-theme \
         nwg-look \
         tar \
-        codium
 
     log_ok "System packages installed."
 }
 
-install_noctalia() {
-    log_info "Installing Noctalia shell theme via Terra repo..."
+install_from_terra() {
+    log_info "Installing Packages from Terra repo..."
     sudo dnf install -y --nogpgcheck \
         --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' \
         terra-release
@@ -168,6 +166,7 @@ install_brave() {
 install_zen() {
     log_info "Installing Zen browser..."
     log_warn "This runs an install script via curl | bash."
+	mkdir -p ~/.local/bin
     curl -s https://updates.zen-browser.app/install.sh | bash
     log_ok "Zen browser installed."
 }
@@ -219,7 +218,7 @@ set_locale
 update_system
 enable_repos
 install_packages
-install_noctalia
+install_from_terra
 install_brave
 install_zen
 disable_selinux
