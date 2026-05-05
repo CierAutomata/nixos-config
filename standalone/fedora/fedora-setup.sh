@@ -15,6 +15,10 @@ sudo dnf update -y
 # uwsm ist über solopasha/hyprland verfügbar
 sudo dnf copr enable -y solopasha/hyprland
 
+# --- RPM-Fusion aktivieren
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
 # --- Systemweite Pakete per DNF ---
 # hyprland ist seit Fedora 40 in den offiziellen Repos verfügbar
 sudo dnf install -y \
@@ -65,7 +69,13 @@ sudo dnf install -y \
     network-manager-applet \
     playerctl \
     pavucontrol \
-    blueman
+    blueman \
+	starship \
+	luarocks \
+	adw-gtk3-theme \
+	nwg-look \
+	tar \
+	codium
 
 # --- Noctalia via Terra Repo ---
 sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
@@ -74,6 +84,9 @@ sudo dnf install -y noctalia-shell
 # --- Brave Browser ---
 sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 sudo dnf install -y brave-browser
+
+# --- Zen Browser
+curl -s https://updates.zen-browser.app/install.sh | bash
 
 # --- SELinux deaktivieren ---
 sudo sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
