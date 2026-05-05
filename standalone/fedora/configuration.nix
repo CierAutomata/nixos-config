@@ -10,14 +10,16 @@ in
   home.homeDirectory = "/home/${user}";
 
   xdg.configFile = {
-    "alacritty".source  = config.lib.file.mkOutOfStoreSymlink (dot + "/alacritty/");
-    "fastfetch".source  = config.lib.file.mkOutOfStoreSymlink (dot + "/fastfetch/");
-    "fish".source       = config.lib.file.mkOutOfStoreSymlink (dot + "/fish/");
-    "hypr".source       = config.lib.file.mkOutOfStoreSymlink (dot + "/hypr/");
-    "kitty".source      = config.lib.file.mkOutOfStoreSymlink (dot + "/kitty/");
-    "niri".source       = config.lib.file.mkOutOfStoreSymlink (dot + "/niri/");
-    "noctalia".source   = config.lib.file.mkOutOfStoreSymlink (dot + "/noctalia/");
-    "nvim".source       = config.lib.file.mkOutOfStoreSymlink (dot + "/nvim/");
+    "hypr".source = config.lib.file.mkOutOfStoreSymlink (dot + "/hypr/");
+    "niri".source = config.lib.file.mkOutOfStoreSymlink (dot + "/niri/");
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink (dot + "/nvim/");
+    "alacritty".source = config.lib.file.mkOutOfStoreSymlink (dot + "/alacritty/");
+    "noctalia".source = config.lib.file.mkOutOfStoreSymlink (dot + "/noctalia/");
+    "fastfetch".source = config.lib.file.mkOutOfStoreSymlink (dot + "/fastfetch/");
+    "fish".source = config.lib.file.mkOutOfStoreSymlink (dot + "/fish/");
+    "kitty".source = config.lib.file.mkOutOfStoreSymlink (dot + "/kitty/");
+    "fuzzel".source = config.lib.file.mkOutOfStoreSymlink (dot + "/fuzzel/");
+    "starship.toml".source = config.lib.file.mkOutOfStoreSymlink (dot + "/starship.toml");
 
     "hypr-host.conf".text = ''source = ${dot}/hypr/hosts/fedora.conf'';
     "niri-host.kdl".text  = ''include "${dot}/niri/hosts/fedora.kdl"'';
