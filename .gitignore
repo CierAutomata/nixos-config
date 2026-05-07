@@ -1,1 +1,9 @@
 .claude/
+dotfiles/alacritty/themes/noctalia.toml
+dotfiles/fuzzel/themes/noctalia
+dotfiles/hypr/noctalia/noctalia-colors.conf
+dotfiles/kitty/themes/noctalia.conf
+dotfiles/kitty/current-theme.conf
+dotfiles/niri/noctalia.kdl
+dotfiles/noctalia/colors.json
+dotfiles/nvim/lua/matugen.lua
